@@ -12,11 +12,11 @@ float decodeHeight(const ofPixels &pixels, int x, int y)
 
 void ofApp::setup()
 {
-    string elevationFilename = "ortho_elevation.png";
-    string pictureFilename = "ortho_picture.png";
+    string heightFilename = "ortho_height.png";
+    string pictureFilename = "ortho_color.png";
     
     ofPixels heightPixels;
-    ofLoadImage(heightPixels, ofToDataPath(elevationFilename));
+    ofLoadImage(heightPixels, ofToDataPath(heightFilename));
     assert(heightPixels.getBytesPerPixel() == 4);
     
     //
@@ -49,9 +49,9 @@ void ofApp::setup()
     
     // ---
     
-    ofPixels satPixels;
-    ofLoadImage(satPixels, ofToDataPath(pictureFilename));
-    satTexture.allocate(satPixels, false); // Square texture
+    ofPixels colorPixels;
+    ofLoadImage(colorPixels, ofToDataPath(pictureFilename));
+    colorTexture.allocate(colorPixels, false); // Square texture
 }
 
 void ofApp::draw()
@@ -61,9 +61,9 @@ void ofApp::draw()
     
     cam.begin();
     
-    satTexture.bind();
+    colorTexture.bind();
     mesh.draw();
-    satTexture.unbind();
+    colorTexture.unbind();
     
     cam.end();
 }

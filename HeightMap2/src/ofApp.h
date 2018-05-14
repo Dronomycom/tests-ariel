@@ -9,7 +9,7 @@ public:
     void draw();
     
 protected:
-    ofTexture satTexture;
+    ofTexture colorTexture;
     ofEasyCam cam;
     ofMesh mesh;
 };
