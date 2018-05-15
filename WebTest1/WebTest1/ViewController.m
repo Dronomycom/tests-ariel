@@ -21,7 +21,7 @@
     _webView.scrollView.scrollEnabled = NO;
     _webView.scrollView.bounces = NO;
     
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test.htm" ofType:nil];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"multi.htm" ofType:nil];
     NSString* htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     [_webView loadHTMLString:htmlString baseURL:nil];
 }

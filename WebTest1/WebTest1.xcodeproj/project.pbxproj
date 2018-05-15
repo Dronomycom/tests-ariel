@@ -12,7 +12,8 @@
 		E4E6B01720AAD9AF00EDE941 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E6B01520AAD9AF00EDE941 /* Main.storyboard */; };
 		E4E6B01920AAD9AF00EDE941 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4E6B01820AAD9AF00EDE941 /* Assets.xcassets */; };
 		E4E6B01F20AAD9AF00EDE941 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E6B01E20AAD9AF00EDE941 /* main.m */; };
-		E4E6B02720AADFF200EDE941 /* test.htm in Resources */ = {isa = PBXBuildFile; fileRef = E4E6B02620AADFF200EDE941 /* test.htm */; };
+		E4E6B02720AADFF200EDE941 /* single.htm in Resources */ = {isa = PBXBuildFile; fileRef = E4E6B02620AADFF200EDE941 /* single.htm */; };
+		E4E6B02A20AAEBED00EDE941 /* multi.htm in Resources */ = {isa = PBXBuildFile; fileRef = E4E6B02920AAEBED00EDE941 /* multi.htm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,8 @@
 		E4E6B01820AAD9AF00EDE941 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4E6B01D20AAD9AF00EDE941 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4E6B01E20AAD9AF00EDE941 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E4E6B02620AADFF200EDE941 /* test.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.htm; sourceTree = "<group>"; };
+		E4E6B02620AADFF200EDE941 /* single.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = single.htm; sourceTree = "<group>"; };
+		E4E6B02920AAEBED00EDE941 /* multi.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = multi.htm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +76,8 @@
 		E4E6B02520AADF8600EDE941 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				E4E6B02620AADFF200EDE941 /* test.htm */,
+				E4E6B02920AAEBED00EDE941 /* multi.htm */,
+				E4E6B02620AADFF200EDE941 /* single.htm */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -138,8 +141,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4E6B01920AAD9AF00EDE941 /* Assets.xcassets in Resources */,
-				E4E6B02720AADFF200EDE941 /* test.htm in Resources */,
+				E4E6B02720AADFF200EDE941 /* single.htm in Resources */,
 				E4E6B01720AAD9AF00EDE941 /* Main.storyboard in Resources */,
+				E4E6B02A20AAEBED00EDE941 /* multi.htm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
