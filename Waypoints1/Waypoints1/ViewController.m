@@ -89,27 +89,51 @@
         }
     }];
     
+    [[self missionOperator] addListenerToUploadEvent:self withQueue:nil andBlock:^(DJIWaypointMissionUploadEvent * _Nonnull event) {
+        [self onUploadEvent:event];
+    }];
+    
     [[self missionOperator] uploadMissionWithCompletion:^(NSError * _Nullable error) {
         
         if (error)
         {
             [self showAlertViewWithTitle:@"Upload Mission failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
         }
-        else
-        {
-            [[self missionOperator] startMissionWithCompletion:^(NSError * _Nullable error) {
-                
-                if (error)
-                {
-                    [self showAlertViewWithTitle:@"Start Mission Failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
-                }
-                else
-                {
-                    [self showAlertViewWithTitle:nil withMessage:@"Mission Started"];
-                }
-            }];
-        }
     }];
+}
+
+- (void)onUploadEvent:(DJIWaypointMissionUploadEvent *) event
+{
+    if (event.currentState == DJIWaypointMissionStateReadyToExecute)
+    {
+        NSLog(@"SUCCESS: the whole waypoint mission is uploaded.");
+        
+        [[self missionOperator] startMissionWithCompletion:^(NSError * _Nullable error) {
+            
+            if (error)
+            {
+                [self showAlertViewWithTitle:@"Start Mission Failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
+            }
+            else
+            {
+                [self showAlertViewWithTitle:nil withMessage:@"Mission Started"];
+            }
+        }];
+    }
+    else if (event.error)
+    {
+        NSLog(@"ERROR: waypoint mission uploading failed. %@", event.error.description);
+    }
+    else if (event.currentState == DJIWaypointMissionStateReadyToUpload ||
+             event.currentState == DJIWaypointMissionStateNotSupported ||
+             event.currentState == DJIWaypointMissionStateDisconnected)
+    {
+        NSLog(@"ERROR: waypoint mission uploading failed. %@", event.error.description);
+    }
+    else if (event.currentState == DJIWaypointMissionStateUploading)
+    {
+        NSLog(@"UPLOADING...");
+    }
 }
 
 -(DJIWaypointMissionOperator *)missionOperator
