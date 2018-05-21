@@ -10,6 +10,8 @@
 
 @interface ViewController ()
 
+@property(nonatomic, strong) DJIMutableWaypointMission* waypointMission;
+
 @end
 
 @implementation ViewController
@@ -42,7 +44,77 @@
     if (product)
     {
         [self showAlertViewWithTitle:nil withMessage:@"Product connected"];
+        
+        [self performSelector:@selector(uploadAndStartMission) withObject:nil afterDelay:2.0];
     }
+}
+
+- (void)uploadAndStartMission
+{
+    self.waypointMission = [[DJIMutableWaypointMission alloc] init];
+    
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:31.988445 longitude:34.939860];
+    DJIWaypoint* waypoint1 = [[DJIWaypoint alloc] initWithCoordinate:location1.coordinate];
+    waypoint1.altitude = 20;
+    [self.waypointMission addWaypoint:waypoint1];
+    
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:31.988536 longitude:34.940595];
+    DJIWaypoint* waypoint2 = [[DJIWaypoint alloc] initWithCoordinate:location2.coordinate];
+    waypoint2.altitude = 30;
+    [self.waypointMission addWaypoint:waypoint2];
+
+    CLLocation *location3 = [[CLLocation alloc] initWithLatitude:31.988755 longitude:34.940161];
+    DJIWaypoint* waypoint3 = [[DJIWaypoint alloc] initWithCoordinate:location3.coordinate];
+    waypoint3.altitude = 15;
+    [self.waypointMission addWaypoint:waypoint3];
+    
+    //
+    
+    self.waypointMission.maxFlightSpeed = 10;
+    self.waypointMission.autoFlightSpeed = 8;
+    self.waypointMission.headingMode = DJIWaypointMissionHeadingAuto;
+    [self.waypointMission setFinishedAction:DJIWaypointMissionFinishedGoHome];
+    
+    [[self missionOperator] loadMission:self.waypointMission];
+    
+        [[self missionOperator] addListenerToFinished:self withQueue:dispatch_get_main_queue() andBlock:^(NSError * _Nullable error) {
+        
+        if (error)
+        {
+            [self showAlertViewWithTitle:@"Mission Execution Failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
+        }
+        else
+        {
+            [self showAlertViewWithTitle:@"Mission Execution Finished" withMessage:nil];
+        }
+    }];
+    
+    [[self missionOperator] uploadMissionWithCompletion:^(NSError * _Nullable error) {
+        
+        if (error)
+        {
+            [self showAlertViewWithTitle:@"Upload Mission failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
+        }
+        else
+        {
+            [[self missionOperator] startMissionWithCompletion:^(NSError * _Nullable error) {
+                
+                if (error)
+                {
+                    [self showAlertViewWithTitle:@"Start Mission Failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
+                }
+                else
+                {
+                    [self showAlertViewWithTitle:nil withMessage:@"Mission Started"];
+                }
+            }];
+        }
+    }];
+}
+
+-(DJIWaypointMissionOperator *)missionOperator
+{
+    return [DJISDKManager missionControl].waypointMissionOperator;
 }
 
 - (void)showAlertViewWithTitle:(NSString *)title withMessage:(NSString *)message
