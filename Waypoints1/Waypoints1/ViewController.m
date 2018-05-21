@@ -14,16 +14,34 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self registerApp];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)registerApp
+{
+    [DJISDKManager registerAppWithDelegate:self];
 }
 
+- (void)appRegisteredWithError:(NSError *)error
+{
+    NSString* message = @"Register App Successed!";
+    if (error)
+    {
+        message = @"Register App Failed! Please enter your App Key in the plist file and check the network.";
+    }
+    
+    [self showAlertViewWithTitle:@"Register App" withMessage:message];
+}
+
+- (void)showAlertViewWithTitle:(NSString *)title withMessage:(NSString *)message
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 @end
