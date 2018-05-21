@@ -27,13 +27,22 @@
 
 - (void)appRegisteredWithError:(NSError *)error
 {
-    NSString* message = @"Register App Successed!";
     if (error)
     {
-        message = @"Register App Failed! Please enter your App Key in the plist file and check the network.";
+        [self showAlertViewWithTitle:@"Register App" withMessage:@"Register App Failed! Please enter your App Key in the plist file and check the network."];
     }
-    
-    [self showAlertViewWithTitle:@"Register App" withMessage:message];
+    else
+    {
+        [DJISDKManager startConnectionToProduct];
+    }
+}
+
+- (void)productConnected:(DJIBaseProduct *)product
+{
+    if (product)
+    {
+        [self showAlertViewWithTitle:nil withMessage:@"Product connected"];
+    }
 }
 
 - (void)showAlertViewWithTitle:(NSString *)title withMessage:(NSString *)message
