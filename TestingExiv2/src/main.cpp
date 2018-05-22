@@ -9,13 +9,20 @@
 #include <iomanip>
 #include <cassert>
 
-/*
- * Example 1: exifprint.cpp
- * This is a very simple program to read and print the Exif metadata of an image. Go to Example2 to see how the output looks like.
- */
+using namespace std;
 
 int main(int argc, char** argv)
 {
+//  Exiv2::ExifData exifData;
+//  exifData["Exif.Image.XResolution"] = Exiv2::FloatValue(123.456f); // FloatValue
+//  exifData["Exif.Image.YResolution"] = Exiv2::Rational(-2, 3); // RationalValue
+//  exifData["Exif.GPSInfo.GPSLatitude"] = Exiv2::FloatValue(32.1662).toRational(); // 32/1 9/1 146003/2500
+//
+//  cout << exifData["Exif.Image.XResolution"].value().toFloat() << endl;
+//  cout << exifData["Exif.Image.YResolution"].value().toFloat() << endl;
+//  cout << exifData["Exif.GPSInfo.GPSLatitude"].value() << endl;
+
+
   Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open("/Users/roikr/Downloads/ADJI_0014 - DJI_0021.jpg");
   assert(image.get() != 0);
   image->readMetadata();
@@ -26,21 +33,11 @@ int main(int argc, char** argv)
     error += ": No Exif data found in the file";
     throw Exiv2::Error(1, error);
   }
-  Exiv2::ExifData::const_iterator end = exifData.end();
-  for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
-    const char* tn = i->typeName();
-    std::cout << std::setw(44) << std::setfill(' ') << std::left
-              << i->key() << " "
-              << "0x" << std::setw(4) << std::setfill('0') << std::right
-              << std::hex << i->tag() << " "
-              << std::setw(9) << std::setfill(' ') << std::left
-              << (tn ? tn : "Unknown") << " "
-              << std::dec << std::setw(3)
-              << std::setfill(' ') << std::right
-              << i->count() << "  "
-              << std::dec << i->value()
-              << "\n";
-  }
+
+  /*
+   * Problem: it reads "32" instead of ~32.1662 (input is "32/1 9/1 146003/2500")
+   */
+  cout << "Latitude: " << exifData["Exif.GPSInfo.GPSLatitude"].value().toFloat() << endl;
 
   return 0;
 }
