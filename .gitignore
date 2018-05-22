@@ -121,6 +121,11 @@ Desktop.ini
 # Android Studio
 *.iml
 
+# CLION
+.idea/
+cmake-build-debug
+cmake-build-release
+
 #########################
 # miscellaneous
 #########################
