@@ -44,6 +44,8 @@
     if (product)
     {
 //        [self showAlertViewWithTitle:nil withMessage:@"Product connected"];
+        NSLog(@"Product connected");
+        
         [self performSelector:@selector(uploadAndStartMission) withObject:nil afterDelay:2.0];
     }
 }
@@ -57,15 +59,33 @@
     waypoint1.altitude = 20;
     [self.waypointMission addWaypoint:waypoint1];
     
-    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:31.988536 longitude:34.940595];
-    DJIWaypoint* waypoint2 = [[DJIWaypoint alloc] initWithCoordinate:location2.coordinate];
-    waypoint2.altitude = 30;
-    [self.waypointMission addWaypoint:waypoint2];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:0]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
 
-    CLLocation *location3 = [[CLLocation alloc] initWithLatitude:31.988755 longitude:34.940161];
-    DJIWaypoint* waypoint3 = [[DJIWaypoint alloc] initWithCoordinate:location3.coordinate];
-    waypoint3.altitude = 15;
-    [self.waypointMission addWaypoint:waypoint3];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:45]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
+
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:90]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
+
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:135]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
+
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:180]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
+
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeRotateAircraft param:[self filterAngle:225]]];
+    [waypoint1 addAction:[[DJIWaypointAction alloc] initWithActionType:DJIWaypointActionTypeShootPhoto param:0]];
+    
+//    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:31.988536 longitude:34.940595];
+//    DJIWaypoint* waypoint2 = [[DJIWaypoint alloc] initWithCoordinate:location2.coordinate];
+//    waypoint2.altitude = 30;
+//    [self.waypointMission addWaypoint:waypoint2];
+//
+//    CLLocation *location3 = [[CLLocation alloc] initWithLatitude:31.988755 longitude:34.940161];
+//    DJIWaypoint* waypoint3 = [[DJIWaypoint alloc] initWithCoordinate:location3.coordinate];
+//    waypoint3.altitude = 15;
+//    [self.waypointMission addWaypoint:waypoint3];
     
     //
     
@@ -94,6 +114,10 @@
         {
             [self showAlertViewWithTitle:@"Waypoint mission uploading failed" withMessage:[NSString stringWithFormat:@"%@", event.error.description]];
         }
+        else if (event.currentState == DJIWaypointMissionStateUploading)
+        {
+            NSLog(@"Progress...");
+        }
         else if (event.currentState == DJIWaypointMissionStateReadyToExecute)
         {
             [[self missionOperator] startMissionWithCompletion:^(NSError * _Nullable error) {
@@ -117,11 +141,25 @@
             [self showAlertViewWithTitle:@"Upload Mission failed" withMessage:[NSString stringWithFormat:@"%@", error.description]];
         }
     }];
+    
+//    DJIWaypointActionTypeShootPhoto
+//    DJIWaypointActionTypeRotateAircraft
+//    DJIWaypointActionTypeRotateGimbalPitch
 }
 
 -(DJIWaypointMissionOperator *)missionOperator
 {
     return [DJISDKManager missionControl].waypointMissionOperator;
+}
+
+- (float)filterAngle:(float)angle
+{
+    if (angle > 180)
+    {
+        return angle - 360; // Filters the angle between -180 ~ 0, 0 ~ 180
+    }
+    
+    return angle;
 }
 
 - (void)showAlertViewWithTitle:(NSString *)title withMessage:(NSString *)message
