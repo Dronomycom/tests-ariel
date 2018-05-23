@@ -64,5 +64,9 @@ void Image::transpose(const Point &refPoint)
   local.y = point.y - refPoint.y;
   local.z = point.z - refPoint.z;
 
-  cout << local.x << " " << local.y << " " << local.z << endl;
+  swap(local.y, local.z);
+
+  point.x = local.x + refPoint.x;
+  point.y = local.y + refPoint.y;
+  point.z = local.z + refPoint.z;
 }

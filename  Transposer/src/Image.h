@@ -23,7 +23,6 @@ public:
 
     std::string path;
     Point point;
-    std::string zone;
 
     Image(const std::string &path);
 
