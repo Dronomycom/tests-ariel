@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include <cassert>
 
 using namespace std;
@@ -29,47 +30,29 @@ double gpsRationalToDecimal(Exiv2::Metadatum& value)
   return decimal;
 }
 
+double stringToDouble(Exiv2::Metadatum& value)
+{
+  return stod(value.toString());
+}
+
 int main(int argc, char** argv)
 {
-  Exiv2::ExifData exifData;
-  exifData["Exif.GPSInfo.GPSAltitude"] = Exiv2::Rational(253231, 1000); // RationalValue
-  cout << exifData["Exif.GPSInfo.GPSAltitude"].value().toFloat() << endl;
-
-  //
-
-  Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open("/Users/roikr/Downloads/ADJI_0014 - DJI_0021.jpg");
+  Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open("/Users/roikr/Downloads/DJI_0027.JPG");
   assert(image.get() != 0);
   image->readMetadata();
 
-  Exiv2::ExifData &inputData = image->exifData();
-  if (inputData.empty()) {
-    std::string error(argv[1]);
-    error += ": No Exif data found in the file";
-    throw Exiv2::Error(1, error);
-  }
+  auto &exifData = image->exifData();
+  auto &xmpData = image->xmpData();
 
-  /*
-   * Parses "32/1 9/1 146003/2500" into 32.1662
-   */
-  cout << "Latitude: " << gpsRationalToDecimal(inputData["Exif.GPSInfo.GPSLatitude"]) << endl;
+  auto lat = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLatitude"]);
+  if (exifData["Exif.GPSInfo.GPSLatitudeRef"].toString() == "S") lat *= -1;
 
-  /*
-   * The following takes a latitude double and make a gps-rational from it
-   */
+  auto lon = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLongitude"]);
+  if (exifData["Exif.GPSInfo.GPSLongitudeRef"].toString() == "W") lon *= -1;
 
-  double lat = gpsRationalToDecimal(inputData["Exif.GPSInfo.GPSLatitude"]);
-  auto degrees = (int)lat;
-  auto minutes = (int)((lat - degrees) * 60.0);
-  double seconds = (lat - degrees - minutes / 60.0) * 60.0 * 60.0;
+  auto alt = stringToDouble(xmpData["Xmp.drone-dji.RelativeAltitude"]);
 
-  Exiv2::URationalValue::AutoPtr rv(new Exiv2::URationalValue);
-  rv->value_.push_back(std::make_pair(degrees, 1));
-  rv->value_.push_back(std::make_pair(minutes, 1));
-  rv->value_.push_back(Exiv2::floatToRationalCast(seconds));
-
-  Exiv2::ExifData outputData;
-  inputData["Exif.GPSInfo.GPSLatitude"] = *rv;
-  cout << inputData["Exif.GPSInfo.GPSLatitude"].value() << endl;
+  cout << lat << " " << lon << " " << alt << endl;
 
   return 0;
 }
