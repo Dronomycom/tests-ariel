@@ -22,6 +22,7 @@ public:
     };
 
     std::string path;
+    std::string description;
     Point point;
     std::string zone;
 

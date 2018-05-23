@@ -54,7 +54,7 @@ path(path)
 void Image::load()
 {
   Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
-  if (!image.get()) throw runtime_error(string("UNABLE TO LOAD IMAGE: ") + path);
+  if (!image.get()) throw runtime_error(string("UNABLE TO OPEN IMAGE: ") + path);
 
   image->readMetadata();
   auto &exifData = image->exifData();
@@ -70,6 +70,9 @@ void Image::load()
 
   GeoConv::LLtoUTM(lat, lon, point.y, point.x, zone);
 
+  description = exifData["Exif.Image.ImageDescription"].toString();
+
+  cout << description << endl;
   cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << point.z << endl;
   cout << "NORTH: " << point.y << " EAST: " << point.x << " ZONE: " << zone << endl << endl;
 }
@@ -80,10 +83,8 @@ void Image::save()
   double lon;
   GeoConv::UTMtoLL(point.y, point.x, zone, lat, lon);
 
-  cout << lat << " " << lon << " " << point.z << endl;
-
   Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
-  if (!image.get()) throw runtime_error(string("UNABLE TO LOAD IMAGE: ") + path);
+  if (!image.get()) throw runtime_error(string("UNABLE TO OPEN IMAGE: ") + path);
 
   image->readMetadata();
   auto &exifData = image->exifData();
@@ -102,6 +103,8 @@ void Image::save()
    */
 
   image->writeMetadata();
+
+  cout << description << " " << lat << " " << lon << " " << point.z << endl;
 }
 
 void Image::transpose(const Point &refPoint)
