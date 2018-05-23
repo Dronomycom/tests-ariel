@@ -54,5 +54,11 @@ int main(int argc, char** argv)
 
   cout << lat << " " << lon << " " << alt << endl;
 
+  //
+
+  exifData["Exif.Image.ImageDescription"].setValue("KILLROY WAS HERE!");
+
+  image->writeMetadata();
+
   return 0;
 }
