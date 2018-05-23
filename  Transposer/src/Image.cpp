@@ -42,19 +42,27 @@ void Image::load()
   auto &exifData = image->exifData();
   auto &xmpData = image->xmpData();
 
-  lat = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLatitude"]);
+  double lat = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLatitude"]);
   if (exifData["Exif.GPSInfo.GPSLatitudeRef"].toString() == "S") lat *= -1;
 
-  lon = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLongitude"]);
+  double lon = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLongitude"]);
   if (exifData["Exif.GPSInfo.GPSLongitudeRef"].toString() == "W") lon *= -1;
 
-  alt = stringToDouble(xmpData["Xmp.drone-dji.RelativeAltitude"]);
+  point.z = stringToDouble(xmpData["Xmp.drone-dji.RelativeAltitude"]);
 
-  double north;
-  double east;
   string zone;
-  GeoConv::LLtoUTM(lat, lon, north, east, zone);
+  GeoConv::LLtoUTM(lat, lon, point.y, point.x, zone);
 
-  cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << alt << endl;
-  cout << "NORTH: " << north << " EAST: " << east << " ZONE: " << zone << endl << endl;
+//  cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << point.z << endl;
+//  cout << "NORTH: " << point.y << " EAST: " << point.x << " ZONE: " << zone << endl << endl;
+}
+
+void Image::transpose(const Point &refPoint)
+{
+  Point local;
+  local.x = point.x - refPoint.x;
+  local.y = point.y - refPoint.y;
+  local.z = point.z - refPoint.z;
+
+  cout << local.x << " " << local.y << " " << local.z << endl;
 }

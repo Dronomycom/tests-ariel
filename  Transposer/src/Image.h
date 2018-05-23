@@ -5,15 +5,28 @@
 class Image
 {
 public:
-    Image(const std::string &path);
-    void load();
+    struct Point
+    {
+        double x; // EAST
+        double y; // NORTH
+        double z; // ALT
 
-protected:
+        Point() = default;
+
+        Point(double x, double y, double z)
+        :
+        x(x),
+        y(y),
+        z(z)
+        {}
+    };
+
     std::string path;
-
-    double lat, lon;
-    double alt;
-
-    double north, east;
+    Point point;
     std::string zone;
+
+    Image(const std::string &path);
+
+    void load();
+    void transpose(const Point &refPoint);
 };

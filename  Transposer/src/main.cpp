@@ -32,5 +32,12 @@ int main(int argc, char** argv)
     image.load();
   }
 
+  Image::Point &refPoint = images.front().point;
+
+  for (auto &image : images)
+  {
+    image.transpose(refPoint);
+  }
+
   return 0;
 }
