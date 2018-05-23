@@ -23,9 +23,11 @@ public:
 
     std::string path;
     Point point;
+    std::string zone;
 
     Image(const std::string &path);
 
     void load();
+    void save();
     void transpose(const Point &refPoint);
 };

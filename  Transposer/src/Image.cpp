@@ -50,11 +50,19 @@ void Image::load()
 
   point.z = stringToDouble(xmpData["Xmp.drone-dji.RelativeAltitude"]);
 
-  string zone;
   GeoConv::LLtoUTM(lat, lon, point.y, point.x, zone);
 
-//  cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << point.z << endl;
-//  cout << "NORTH: " << point.y << " EAST: " << point.x << " ZONE: " << zone << endl << endl;
+  cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << point.z << endl;
+  cout << "NORTH: " << point.y << " EAST: " << point.x << " ZONE: " << zone << endl << endl;
+}
+
+void Image::save()
+{
+  double lat;
+  double lon;
+  GeoConv::UTMtoLL(point.y, point.x, zone, lat, lon);
+
+  cout << lat << " " << lon << " " << point.z << endl;
 }
 
 void Image::transpose(const Point &refPoint)

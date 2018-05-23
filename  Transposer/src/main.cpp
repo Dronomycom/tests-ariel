@@ -39,5 +39,10 @@ int main(int argc, char** argv)
     image.transpose(refPoint);
   }
 
+  for (auto &image : images)
+  {
+    image.save();
+  }
+
   return 0;
 }
