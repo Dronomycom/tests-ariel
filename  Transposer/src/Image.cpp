@@ -1,6 +1,8 @@
 #include "Image.h"
 #include "GeoConv.h"
 
+#include <cmath>
+
 #include <exiv2/exiv2.hpp>
 
 using namespace std;
@@ -21,6 +23,22 @@ double gpsRationalToDecimal(Exiv2::Metadatum& value)
   }
 
   return decimal;
+}
+
+Exiv2::URationalValue::AutoPtr decimalToGpsRational(double coord)
+{
+  coord = fabs(coord);
+
+  auto degrees = (int)coord;
+  auto minutes = (int)((coord - degrees) * 60.0);
+  double seconds = (coord - degrees - minutes / 60.0) * 60.0 * 60.0;
+
+  Exiv2::URationalValue::AutoPtr rv(new Exiv2::URationalValue);
+  rv->value_.push_back(std::make_pair(degrees, 1));
+  rv->value_.push_back(std::make_pair(minutes, 1));
+  rv->value_.push_back(Exiv2::floatToRationalCast(seconds));
+
+  return rv;
 }
 
 double stringToDouble(Exiv2::Metadatum& value)
@@ -63,6 +81,27 @@ void Image::save()
   GeoConv::UTMtoLL(point.y, point.x, zone, lat, lon);
 
   cout << lat << " " << lon << " " << point.z << endl;
+
+  Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
+  if (!image.get()) throw runtime_error(string("UNABLE TO LOAD IMAGE: ") + path);
+
+  image->readMetadata();
+  auto &exifData = image->exifData();
+  auto &xmpData = image->xmpData();
+
+  exifData["Exif.GPSInfo.GPSLatitude"] = *decimalToGpsRational(lat);
+  exifData["Exif.GPSInfo.GPSLatitudeRef"].setValue(lat < 0 ? "S" : "N");
+
+  exifData["Exif.GPSInfo.GPSLongitude"] = *decimalToGpsRational(lon);
+  exifData["Exif.GPSInfo.GPSLongitudeRef"].setValue(lon < 0 ? "W" : "E");
+
+  xmpData["Xmp.drone-dji.RelativeAltitude"].setValue(to_string(point.z));
+
+  /*
+   * TODO: Save modified gimbal value(s) as well
+   */
+
+  image->writeMetadata();
 }
 
 void Image::transpose(const Point &refPoint)
