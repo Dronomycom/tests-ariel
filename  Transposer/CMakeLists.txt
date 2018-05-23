@@ -19,6 +19,8 @@ set(LIBRARIES
 
 set(SRC_FILES
   src/main.cpp
+  src/Image.cpp
+  src/GeoConv.cpp
 )
 
 include("$ENV{CROSS_PATH}/core/cmake/test.cmake")
