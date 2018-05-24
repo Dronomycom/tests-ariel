@@ -60,6 +60,8 @@ void Image::load()
   auto &exifData = image->exifData();
   auto &xmpData = image->xmpData();
 
+  description = exifData["Exif.Image.ImageDescription"].toString();
+
   double lat = gpsRationalToDecimal(exifData["Exif.GPSInfo.GPSLatitude"]);
   if (exifData["Exif.GPSInfo.GPSLatitudeRef"].toString() == "S") lat *= -1;
 
@@ -69,8 +71,6 @@ void Image::load()
   point.z = stringToDouble(xmpData["Xmp.drone-dji.RelativeAltitude"]);
 
   GeoConv::LLtoUTM(lat, lon, point.y, point.x, zone);
-
-  description = exifData["Exif.Image.ImageDescription"].toString();
 
   cout << description << endl;
   cout << "LAT: " << lat << " LON: "  << lon << " ALT: " << point.z << endl;
@@ -97,10 +97,7 @@ void Image::save()
   exifData["Exif.GPSInfo.GPSLongitudeRef"].setValue(lon < 0 ? "W" : "E");
 
   xmpData["Xmp.drone-dji.RelativeAltitude"].setValue(to_string(point.z));
-
-  /*
-   * TODO: Save modified gimbal value(s) as well
-   */
+  xmpData["Xmp.drone-dji.GimbalPitchDegree"].setValue("-90"); // XXX
 
   image->writeMetadata();
 
