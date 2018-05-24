@@ -27,10 +27,23 @@ int main(int argc, char** argv)
     }
   }
 
+  //
+
+  auto sortRuleLambda = [] (const Image& i1, const Image& i2) -> bool
+  {
+      return i1.path < i2.path;
+  };
+
+  std::sort(images.begin(), images.end(), sortRuleLambda);
+
+  //
+
   for (auto &image : images)
   {
     image.load();
   }
+
+  //
 
   Image::Point &refPoint = images.front().point;
 
@@ -38,6 +51,8 @@ int main(int argc, char** argv)
   {
     image.transpose(refPoint);
   }
+
+  //
 
   for (auto &image : images)
   {
