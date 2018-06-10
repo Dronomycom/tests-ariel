@@ -10,9 +10,11 @@
 #import <DJISDK/DJISDK.h>
 #import "DemoComponentHelper.h"
 
+#define STICK_RANGE 660.0f
+
 @interface ViewController () <DJISDKManagerDelegate, DJIBaseProductDelegate, DJIFlightAssistantDelegate, DJIFlightControllerDelegate, DJIRemoteControllerDelegate>
 {
-    BOOL pModeActive;
+    BOOL virtualStickEnabled;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *info1;
@@ -70,21 +72,54 @@
 {
     if (state.flightModeSwitch == DJIRCFlightModeSwitchThree)
     {
-        if (!pModeActive)
+        if (!virtualStickEnabled)
         {
-            pModeActive = YES;
-            [self showAlertWithMessage:@"ENTERING P-MODE"];
+            virtualStickEnabled = YES;
+            [self enableVirtualStick];
         }
     }
     else
     {
-        if (pModeActive)
+        if (virtualStickEnabled)
         {
-            pModeActive = NO;
-            [self showAlertWithMessage:@"LEAVING P-MODE"];
+            virtualStickEnabled = NO;
+            [self disableVirtualStick];
         }
     }
+    
+    float RH = state.rightStick.horizontalPosition;
+    float mappedRH = RH / (STICK_RANGE * 2) + 0.5f;
+    float pitch = -15 + (15 * 2) * mappedRH;
+    self.info1.text = [NSString stringWithFormat:@"%f", pitch];
+    
+//    self.info1.text = [NSString stringWithFormat:@"%d", state.rightStick.horizontalPosition];
+//    self.rightVertical.text = [NSString stringWithFormat:@"%d", state.rightStick.verticalPosition];
+//    self.leftVertical.text = [NSString stringWithFormat:@"%d", state.leftStick.verticalPosition];
+//    self.leftHorizontal.text = [NSString stringWithFormat:@"%d", state.leftStick.horizontalPosition];
 }
+
+- (void)enableVirtualStick
+{
+    DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
+
+    fc.yawControlMode = DJIVirtualStickYawControlModeAngularVelocity;
+    fc.rollPitchControlMode = DJIVirtualStickRollPitchControlModeVelocity;
+    fc.verticalControlMode = DJIVirtualStickVerticalControlModeVelocity;
+        
+    [fc setVirtualStickModeEnabled:YES withCompletion:^(NSError * _Nullable error) {
+        if (error)
+        {
+            [self showAlertWithMessage:[NSString stringWithFormat:@"Enter Virtual Stick Mode: %@", error.description]];
+        }
+        else
+        {
+            [self showAlertWithMessage:@"Enter Virtual Stick Mode: Succeeded"];
+        }
+    }];
+}
+
+- (void)disableVirtualStick
+{}
 
 - (IBAction) switched:(id)sender
 {}
