@@ -57,8 +57,10 @@
         fc.delegate = self;
         fc.flightAssistant.delegate = self;
         
-        DJIRemoteController* rc = [DemoComponentHelper fetchRemoteController];
+        DJIRemoteController *rc = [DemoComponentHelper fetchRemoteController];
         rc.delegate = self;
+        
+        [self enableCollisionAvoidance:YES];
     }
 }
 
@@ -67,6 +69,12 @@
 
 - (void)flightAssistant:(DJIFlightAssistant*)assistant didUpdateVisionDetectionState:(DJIVisionDetectionState*)state
 {}
+
+- (void)flightAssistant:(DJIFlightAssistant *)assistant didUpdateVisionControlState:(DJIVisionControlState *)state
+{
+    self.info1.text = [NSString stringWithFormat:@"isBraking: %d", state.isBraking];
+    self.info2.text = [NSString stringWithFormat:@"isAvoidingActiveObstacleCollision: %d", state.isAvoidingActiveObstacleCollision];
+}
 
 -(void)remoteController:(DJIRemoteController *)rc didUpdateHardwareState:(DJIRCHardwareState)state
 {
@@ -112,8 +120,6 @@
         {
             [fc sendVirtualStickFlightControlData:ctrlData withCompletion:nil];
         }
-        
-//        self.info1.text = [NSString stringWithFormat:@"%f", targetRoll];
     }
 }
 
@@ -154,8 +160,29 @@
     }];
 }
 
+- (void) enableCollisionAvoidance:(BOOL)enabled
+{
+    DJIFlightController *fc = [DemoComponentHelper fetchFlightController];
+    
+    [fc.flightAssistant setCollisionAvoidanceEnabled:enabled withCompletion:^(NSError * _Nullable error) {
+        if (error)
+        {
+            [self showAlertWithMessage:[NSString stringWithFormat:@"setCollisionAvoidanceEnabled: %@", error.description]];
+        }
+    }];
+    
+    [fc.flightAssistant setActiveObstacleAvoidanceEnabled:enabled withCompletion:^(NSError * _Nullable error) {
+        if (error)
+        {
+            [self showAlertWithMessage:[NSString stringWithFormat:@"setActiveObstacleAvoidanceEnabled: %@", error.description]];
+        }
+    }];
+}
+
 - (IBAction) switched:(id)sender
-{}
+{
+    [self enableCollisionAvoidance:[sender isOn]];
+}
 
 #pragma mark
 
