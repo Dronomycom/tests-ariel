@@ -70,7 +70,7 @@
 
 -(void)remoteController:(DJIRemoteController *)rc didUpdateHardwareState:(DJIRCHardwareState)state
 {
-    if (state.flightModeSwitch == DJIRCFlightModeSwitchThree)
+    if (state.flightModeSwitch == DJIRCFlightModeSwitchThree) // 'P'
     {
         if (!virtualStickEnabled)
         {
@@ -86,16 +86,39 @@
             [self disableVirtualStick];
         }
     }
-    
-    float RH = state.rightStick.horizontalPosition;
-    float mappedRH = RH / (STICK_RANGE * 2) + 0.5f;
-    float pitch = -15 + (15 * 2) * mappedRH;
-    self.info1.text = [NSString stringWithFormat:@"%f", pitch];
-    
-//    self.info1.text = [NSString stringWithFormat:@"%d", state.rightStick.horizontalPosition];
-//    self.rightVertical.text = [NSString stringWithFormat:@"%d", state.rightStick.verticalPosition];
-//    self.leftVertical.text = [NSString stringWithFormat:@"%d", state.leftStick.verticalPosition];
-//    self.leftHorizontal.text = [NSString stringWithFormat:@"%d", state.leftStick.horizontalPosition];
+
+    if (virtualStickEnabled)
+    {
+        float LH = state.leftStick.horizontalPosition;
+        float mappedLH = LH / (STICK_RANGE * 2) + 0.5f;
+        float targetYaw = (2 * mappedLH - 1) * 100;
+        
+        float LV = state.leftStick.verticalPosition;
+        float mappedLV = LV / (STICK_RANGE * 2) + 0.5f;
+        float targetVerticalThrottle = (2 * mappedLV - 1) * 4;
+        
+        float RH = state.rightStick.horizontalPosition;
+        float mappedRH = RH / (STICK_RANGE * 2) + 0.5f;
+        float targetPitch = (2 * mappedRH - 1) * 15;
+
+        float RV = state.rightStick.verticalPosition;
+        float mappedRV = RV / (STICK_RANGE * 2) + 0.5f;
+        float targetRoll = (2 * mappedRV - 1) * 15;
+        
+        DJIVirtualStickFlightControlData ctrlData = {0};
+        ctrlData.pitch = targetPitch;
+        ctrlData.roll = targetRoll;
+        ctrlData.yaw = targetYaw;
+        ctrlData.verticalThrottle = targetVerticalThrottle;
+        
+        DJIFlightController *fc = [DemoComponentHelper fetchFlightController];
+        if (fc.isVirtualStickControlModeAvailable)
+        {
+            [fc sendVirtualStickFlightControlData:ctrlData withCompletion:nil];
+        }
+        
+//        self.info1.text = [NSString stringWithFormat:@"%f", targetRoll];
+    }
 }
 
 - (void)enableVirtualStick
@@ -105,6 +128,7 @@
     fc.yawControlMode = DJIVirtualStickYawControlModeAngularVelocity;
     fc.rollPitchControlMode = DJIVirtualStickRollPitchControlModeVelocity;
     fc.verticalControlMode = DJIVirtualStickVerticalControlModeVelocity;
+    fc.rollPitchCoordinateSystem = DJIVirtualStickFlightCoordinateSystemBody;
         
     [fc setVirtualStickModeEnabled:YES withCompletion:^(NSError * _Nullable error) {
         if (error)
@@ -119,7 +143,20 @@
 }
 
 - (void)disableVirtualStick
-{}
+{
+    DJIFlightController* fc = [DemoComponentHelper fetchFlightController];
+
+    [fc setVirtualStickModeEnabled:NO withCompletion:^(NSError * _Nullable error) {
+        if (error)
+        {
+            [self showAlertWithMessage:[NSString stringWithFormat:@"Exit Virtual Stick Mode: %@", error.description]];
+        }
+        else
+        {
+            [self showAlertWithMessage:@"Exit Virtual Stick Mode: Succeeded"];
+        }
+    }];
+}
 
 - (IBAction) switched:(id)sender
 {}
