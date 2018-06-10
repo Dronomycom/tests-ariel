@@ -90,27 +90,23 @@
     if (virtualStickEnabled)
     {
         float LH = state.leftStick.horizontalPosition;
-        float mappedLH = LH / (STICK_RANGE * 2) + 0.5f;
-        float targetYaw = (2 * mappedLH - 1) * 100;
+        float targetYaw = 100 * LH / STICK_RANGE;
         
         float LV = state.leftStick.verticalPosition;
-        float mappedLV = LV / (STICK_RANGE * 2) + 0.5f;
-        float targetVerticalThrottle = (2 * mappedLV - 1) * 4;
+        float targetVerticalThrottle = 4 * LV / STICK_RANGE;
         
         float RH = state.rightStick.horizontalPosition;
-        float mappedRH = RH / (STICK_RANGE * 2) + 0.5f;
-        float targetPitch = (2 * mappedRH - 1) * 15;
+        float targetPitch = 15 * RH / STICK_RANGE;
 
         float RV = state.rightStick.verticalPosition;
-        float mappedRV = RV / (STICK_RANGE * 2) + 0.5f;
-        float targetRoll = (2 * mappedRV - 1) * 15;
+        float targetRoll = 15 * RV / STICK_RANGE;
         
         DJIVirtualStickFlightControlData ctrlData = {0};
         ctrlData.pitch = targetPitch;
         ctrlData.roll = targetRoll;
         ctrlData.yaw = targetYaw;
         ctrlData.verticalThrottle = targetVerticalThrottle;
-        
+
         DJIFlightController *fc = [DemoComponentHelper fetchFlightController];
         if (fc.isVirtualStickControlModeAvailable)
         {
