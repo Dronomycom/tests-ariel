@@ -40,6 +40,7 @@
     else
     {
         [DJISDKManager startConnectionToProduct];
+        [DJISDKManager enableDebugLogSystem];
     }
 }
 
