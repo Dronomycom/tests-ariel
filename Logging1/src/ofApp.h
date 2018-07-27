@@ -1,10 +1,13 @@
 #pragma once
 
-#include "ofxiOS.h"
+#include "Logger.h"
 
 class ofApp : public ofxiOSApp
 {
 public:
     void setup();
     void draw();
+    
+protected:
+    Logger logger;
 };
