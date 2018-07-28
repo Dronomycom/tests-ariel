@@ -7,7 +7,7 @@
 
 #import "Uploader.h"
 
-#include "ofxiOS.h"
+#include "Utils.h"
 
 @implementation Uploader
 
@@ -55,7 +55,7 @@
                     double price;
                     iss >> product >> price;
                     
-                    message[@"product"] = ofxStringToNSString(product);
+                    message[@"product"] = ofxStringToNSString(decodeString(product));
                     message[@"price"] = [NSNumber numberWithDouble:price];
                     break;
                 }
@@ -68,8 +68,8 @@
                     iss >> age >> name >> surname;
                     
                     message[@"age"] = [NSNumber numberWithInt:age];
-                    message[@"name"] = ofxStringToNSString(name);
-                    message[@"surname"] = ofxStringToNSString(surname);
+                    message[@"name"] = ofxStringToNSString(decodeString(name));
+                    message[@"surname"] = ofxStringToNSString(decodeString(surname));
                     break;
                 }
             }

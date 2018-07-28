@@ -5,7 +5,7 @@
 void ofApp::setup()
 {
     logger.begin();
-        logger.type1.product = "Coke";
+        logger.type1.product = "Coca Cola";
         logger.type1.price = 1.99;
         logger.recordType1();
 
