@@ -26,10 +26,10 @@ void Logger::end()
 
 void Logger::recordType1()
 {
-    logStream << 1 << '\t' << encodeString(type1.product) << '\t' << type1.price << endl;
+    logStream << 1 << '\t' << ofGetElapsedTimeMicros() << '\t' << encodeString(type1.product) << '\t' << type1.price << endl;
 }
 
 void Logger::recordType2()
 {
-    logStream << 2 << '\t' << type2.age << '\t' << encodeString(type2.name) << '\t' << encodeString(type2.surname) << endl;
+    logStream << 2 << '\t' << ofGetElapsedTimeMicros() << '\t' << type2.age << '\t' << encodeString(type2.name) << '\t' << encodeString(type2.surname) << endl;
 }

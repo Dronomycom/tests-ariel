@@ -31,7 +31,7 @@ void ofApp::setup()
     logger.end();
 
     //
-    
+
     Uploader *uploader = [[Uploader alloc] init];
     [uploader upload];
 

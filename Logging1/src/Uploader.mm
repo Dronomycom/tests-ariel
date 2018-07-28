@@ -41,11 +41,15 @@
         string line2;
         while (getline(input2, line2))
         {
-            NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
-            
             istringstream iss(line2);
             int type;
-            iss >> type;
+            double date;
+            iss >> type >> date;
+            
+            NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
+            message[@"type"] = [NSNumber numberWithInt:type];
+            message[@"date"] = [NSNumber numberWithDouble:date];
+            message[@"data"] = [[NSMutableDictionary alloc] init];
             
             switch (type)
             {
@@ -55,8 +59,8 @@
                     double price;
                     iss >> product >> price;
                     
-                    message[@"product"] = ofxStringToNSString(decodeString(product));
-                    message[@"price"] = [NSNumber numberWithDouble:price];
+                    message[@"data"][@"product"] = ofxStringToNSString(decodeString(product));
+                    message[@"data"][@"price"] = [NSNumber numberWithDouble:price];
                     break;
                 }
                     
@@ -67,9 +71,9 @@
                     string surname;
                     iss >> age >> name >> surname;
                     
-                    message[@"age"] = [NSNumber numberWithInt:age];
-                    message[@"name"] = ofxStringToNSString(decodeString(name));
-                    message[@"surname"] = ofxStringToNSString(decodeString(surname));
+                    message[@"data"][@"age"] = [NSNumber numberWithInt:age];
+                    message[@"data"][@"name"] = ofxStringToNSString(decodeString(name));
+                    message[@"data"][@"surname"] = ofxStringToNSString(decodeString(surname));
                     break;
                 }
             }
