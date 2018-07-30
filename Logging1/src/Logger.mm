@@ -23,12 +23,16 @@ void Logger::end()
     logStream.close();
 }
 
-void Logger::recordType1()
+void Logger::recordType(int typeId)
 {
-    type1.encode(logStream);
-}
-
-void Logger::recordType2()
-{
-    type2.encode(logStream);
+    switch (typeId)
+    {
+        case 1:
+            type1.encode(logStream);
+            break;
+            
+        case 2:
+            type2.encode(logStream);
+            break;
+    }
 }

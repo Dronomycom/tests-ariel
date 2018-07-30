@@ -19,8 +19,7 @@ public:
     void begin();
     void end();
     
-    void recordType1();
-    void recordType2();
+    void recordType(int typeId);
     
 protected:
     ofstream logStream;
