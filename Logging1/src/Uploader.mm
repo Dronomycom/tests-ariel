@@ -7,7 +7,8 @@
 
 #import "Uploader.h"
 
-#include "BaseType.h"
+#include "Type1.h"
+#include "Type2.h"
 
 @implementation Uploader
 
@@ -54,28 +55,12 @@
             switch (type)
             {
                 case 1:
-                {
-                    string product;
-                    double price;
-                    iss >> product >> price;
-                    
-                    message[@"data"][@"product"] = ofxStringToNSString(BaseType::decodeString(product));
-                    message[@"data"][@"price"] = [NSNumber numberWithDouble:price];
+                    Type1::mix(iss, message[@"data"]);
                     break;
-                }
-                    
+
                 case 2:
-                {
-                    int age;
-                    string name;
-                    string surname;
-                    iss >> age >> name >> surname;
-                    
-                    message[@"data"][@"age"] = [NSNumber numberWithInt:age];
-                    message[@"data"][@"name"] = ofxStringToNSString(BaseType::decodeString(name));
-                    message[@"data"][@"surname"] = ofxStringToNSString(BaseType::decodeString(surname));
+                    Type2::mix(iss, message[@"data"]);
                     break;
-                }
             }
             
             [object[@"messages"] addObject:message];

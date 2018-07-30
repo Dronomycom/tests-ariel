@@ -18,4 +18,6 @@ public:
     
     int getId() final { return 2; }
     void encode(ofstream &stream) final;
+    
+    static void mix(istringstream &stream, NSMutableDictionary *data);
 };
