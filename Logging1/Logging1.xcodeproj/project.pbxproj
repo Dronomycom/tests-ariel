@@ -33,6 +33,8 @@
 		E49A2F1E210F08B400AB9277 /* BaseType.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F1C210F08B400AB9277 /* BaseType.mm */; };
 		E49A2F21210F0C3400AB9277 /* Type1.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F1F210F0C3400AB9277 /* Type1.mm */; };
 		E49A2F24210F10DB00AB9277 /* Type2.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F23210F10DB00AB9277 /* Type2.mm */; };
+		E49A2F27210F346000AB9277 /* TypeMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F25210F346000AB9277 /* TypeMission.mm */; };
+		E49A2F2A210F361000AB9277 /* Type3.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F28210F361000AB9277 /* Type3.mm */; };
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
 		FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21BDE665988474F1B1F4D302 /* jsoncpp.cpp */; };
@@ -97,6 +99,10 @@
 		E49A2F20210F0C3400AB9277 /* Type1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Type1.h; sourceTree = "<group>"; };
 		E49A2F22210F10DB00AB9277 /* Type2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type2.h; sourceTree = "<group>"; };
 		E49A2F23210F10DB00AB9277 /* Type2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Type2.mm; sourceTree = "<group>"; };
+		E49A2F25210F346000AB9277 /* TypeMission.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMission.mm; sourceTree = "<group>"; };
+		E49A2F26210F346000AB9277 /* TypeMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMission.h; sourceTree = "<group>"; };
+		E49A2F28210F361000AB9277 /* Type3.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Type3.mm; sourceTree = "<group>"; };
+		E49A2F29210F361000AB9277 /* Type3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Type3.h; sourceTree = "<group>"; };
 		E4A823A312561BE3002F86A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E4D8936B11527B74007E1F53 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/main.mm; sourceTree = SOURCE_ROOT; };
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
@@ -317,6 +323,10 @@
 				E49A2F1F210F0C3400AB9277 /* Type1.mm */,
 				E49A2F22210F10DB00AB9277 /* Type2.h */,
 				E49A2F23210F10DB00AB9277 /* Type2.mm */,
+				E49A2F26210F346000AB9277 /* TypeMission.h */,
+				E49A2F25210F346000AB9277 /* TypeMission.mm */,
+				E49A2F29210F361000AB9277 /* Type3.h */,
+				E49A2F28210F361000AB9277 /* Type3.mm */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -490,12 +500,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49A2F2A210F361000AB9277 /* Type3.mm in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E49A2F10210A145B00AB9277 /* Logger.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 				BEDFEE7400C58EA4E412B757 /* ofxJSONElement.cpp in Sources */,
 				FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */,
 				E49A2F24210F10DB00AB9277 /* Type2.mm in Sources */,
+				E49A2F27210F346000AB9277 /* TypeMission.mm in Sources */,
 				E49A2F21210F0C3400AB9277 /* Type1.mm in Sources */,
 				E49A2F15210BC9BD00AB9277 /* Uploader.mm in Sources */,
 				E49A2F1E210F08B400AB9277 /* BaseType.mm in Sources */,

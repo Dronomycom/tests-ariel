@@ -34,5 +34,11 @@ void Logger::recordType(int typeId)
         case 2:
             type2.encode(logStream);
             break;
+            
+        case 3:
+            type3.encode(logStream);
+            break;
     }
+    
+    logStream << endl;
 }

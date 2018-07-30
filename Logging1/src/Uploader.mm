@@ -9,6 +9,7 @@
 
 #include "Type1.h"
 #include "Type2.h"
+#include "Type3.h"
 
 @implementation Uploader
 
@@ -61,6 +62,10 @@
                 case 2:
                     Type2::mix(iss, message[@"data"]);
                     break;
+                    
+                case 3:
+                    Type3::mix(iss, message[@"data"]);
+                    break;
             }
             
             [object[@"messages"] addObject:message];
@@ -86,8 +91,8 @@
         }
         output.close();
 
-        NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
+//        NSError *error = nil;
+//        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
     }
 }
 

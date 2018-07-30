@@ -14,9 +14,11 @@ void ofApp::setup()
         logger.type2.surname = "of Nazareth";
         logger.recordType(2);
 
-        logger.type1.product = "Cheetos";
-        logger.type1.price = 2.35;
-        logger.recordType(1);
+        logger.type3.siteId = 28;
+        logger.type3.siteName = "Shoam";
+        logger.type3.rth = 20;
+        logger.type3.alt = 40;
+        logger.recordType(3);
     logger.end();
 
     logger.begin();
