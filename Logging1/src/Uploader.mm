@@ -7,9 +7,18 @@
 
 #import "Uploader.h"
 
+#import <AFNetworking/AFNetworking.h>
+
 #include "Type1.h"
 #include "Type2.h"
 #include "Type3.h"
+
+@interface Uploader()
+{
+    AFHTTPSessionManager *_sessionManager;
+}
+
+@end
 
 @implementation Uploader
 
@@ -34,9 +43,9 @@
         
         cout << "PROCESSING " << line << endl;
         
-        NSMutableDictionary *object = [[NSMutableDictionary alloc] init];
-        object[@"version"] = @"1.0";
-        object[@"messages"] = [[NSMutableArray alloc] init];
+        NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
+        payload[@"version"] = @"1.0";
+        payload[@"messages"] = [[NSMutableArray alloc] init];
         
         ifstream input2(ofxiOSGetDocumentsDirectory() + line);
         
@@ -68,18 +77,18 @@
                     break;
             }
             
-            [object[@"messages"] addObject:message];
+            [payload[@"messages"] addObject:message];
             
-            if ([object[@"messages"] count] == 2)
+            if ([payload[@"messages"] count] == 2) // Number of messages per payload
             {
-                [self flush:object];
-                [object[@"messages"] removeAllObjects];
+                [self flush:payload];
+                [payload[@"messages"] removeAllObjects];
             }
         }
         
-        if ([object[@"messages"] count] > 0)
+        if ([payload[@"messages"] count] > 0)
         {
-            [self flush:object];
+            [self flush:payload];
         }
         
         //
@@ -96,9 +105,38 @@
     }
 }
 
-- (void)flush:(NSDictionary*)object
+- (void)flush:(NSDictionary*)payload
 {
-    NSLog(@"*** FLUSHING: %@ ***", object);
+    NSLog(@"*** FLUSHING: %@ ***", payload);
+}
+
+/*
+ * http://stackoverflow.com/questions/27694112/basic-authentication-with-afnetworking
+ */
+- (AFHTTPSessionManager*)sessionManagerWithUsername:(NSString*)username password:(NSString*)password
+{
+    NSData *plainData = [[NSString stringWithFormat:@"%@:%@",username,password] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *encodedCredentials = [NSString stringWithFormat:@"Basic %@", [plainData base64EncodedStringWithOptions:0]];
+    
+    NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [conf setHTTPAdditionalHeaders:[NSDictionary dictionaryWithObject:encodedCredentials forKey:@"Authorization"]];
+    
+    /*
+     * api-qa.dronomy.com
+     * api-staging.dronomy.com
+     * api.dronomy.com
+     */
+    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-qa.dronomy.com"] sessionConfiguration:conf];
+}
+
+-(AFHTTPSessionManager*)sessionManager
+{
+    if (!_sessionManager)
+    {
+        _sessionManager = [self sessionManagerWithUsername:@"ariel@dronomy.com" password:@"autonomy"];
+    }
+    
+    return _sessionManager;
 }
 
 @end
