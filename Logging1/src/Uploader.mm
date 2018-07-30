@@ -91,8 +91,8 @@
         }
         output.close();
 
-//        NSError *error = nil;
-//        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
+        NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
     }
 }
 
