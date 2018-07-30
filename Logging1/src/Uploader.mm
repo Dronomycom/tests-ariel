@@ -7,7 +7,7 @@
 
 #import "Uploader.h"
 
-#include "Utils.h"
+#include "BaseType.h"
 
 @implementation Uploader
 
@@ -59,7 +59,7 @@
                     double price;
                     iss >> product >> price;
                     
-                    message[@"data"][@"product"] = ofxStringToNSString(decodeString(product));
+                    message[@"data"][@"product"] = ofxStringToNSString(BaseType::decodeString(product));
                     message[@"data"][@"price"] = [NSNumber numberWithDouble:price];
                     break;
                 }
@@ -72,8 +72,8 @@
                     iss >> age >> name >> surname;
                     
                     message[@"data"][@"age"] = [NSNumber numberWithInt:age];
-                    message[@"data"][@"name"] = ofxStringToNSString(decodeString(name));
-                    message[@"data"][@"surname"] = ofxStringToNSString(decodeString(surname));
+                    message[@"data"][@"name"] = ofxStringToNSString(BaseType::decodeString(name));
+                    message[@"data"][@"surname"] = ofxStringToNSString(BaseType::decodeString(surname));
                     break;
                 }
             }

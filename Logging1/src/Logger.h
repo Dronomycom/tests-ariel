@@ -7,24 +7,12 @@
 
 #pragma once
 
-#include "ofxiOS.h"
+#include "Type1.h"
+#include "Type2.h"
 
 class Logger
 {
 public:
-    struct Type1
-    {
-        string product;
-        double price;
-    };
-    
-    struct Type2
-    {
-        int age;
-        string name;
-        string surname;
-    };
-    
     Type1 type1;
     Type2 type2;
     
