@@ -46,7 +46,7 @@ void ofApp::setup()
         logger.typeMissionStructure.last_floor_gimbal_pitch = 90;
         logger.typeMissionStructure.image_overlap = 60;
         logger.record(3, 4);
-    
+
         logger.typeMissionRecon.username = "roee";
         logger.typeMissionRecon.siteId = 25;
         logger.typeMissionRecon.siteName = "Kentucky County Jail";

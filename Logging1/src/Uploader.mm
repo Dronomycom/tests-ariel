@@ -130,6 +130,26 @@
 - (void)flush:(NSDictionary*)payload
 {
     NSLog(@"*** FLUSHING: %@ ***", payload);
+    
+    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:payload error:nil];
+    
+    NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (error) // e.g. timeout or 404
+        {
+            NSLog(@"ERROR: %@", [error localizedDescription]);
+        }
+        else if ([(NSHTTPURLResponse*)response statusCode] != 200)
+        {
+            NSLog(@"FAILED WITH STATUS-CODE: %zd", [(NSHTTPURLResponse*)response statusCode]);
+        }
+        else
+        {
+            NSLog(@"OK");
+        }
+    }];
+    
+    [task resume];
 }
 
 /*
@@ -143,12 +163,7 @@
     NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
     [conf setHTTPAdditionalHeaders:[NSDictionary dictionaryWithObject:encodedCredentials forKey:@"Authorization"]];
     
-    /*
-     * api-qa.dronomy.com
-     * api-staging.dronomy.com
-     * api.dronomy.com
-     */
-    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-qa.dronomy.com"] sessionConfiguration:conf];
+    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-dev.dronomy.com:8443"] sessionConfiguration:conf];
 }
 
 -(AFHTTPSessionManager*)sessionManager
