@@ -1,5 +1,5 @@
 //
-//  TypeMissionArea.h
+//  TypeMissionRecon.h
 //  Logging1
 //
 //  Created by Ariel Malka on 30/07/2018.
@@ -9,13 +9,12 @@
 
 #include "TypeMission.h"
 
-class TypeMissionArea : public TypeMission
+class TypeMissionRecon : public TypeMission
 {
 public:
     double rth;
     double alt;
-    double gimbal_pitch;
-    double image_overlap;
+    double approach_alt;
     
     void encode(ofstream &stream) final;
     

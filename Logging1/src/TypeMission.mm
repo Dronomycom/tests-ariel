@@ -10,15 +10,33 @@
 void TypeMission::encode(ofstream &stream)
 {
     encodeHeader(stream);
-    stream << '\t' << missionType << '\t' << siteId << '\t' << encodeString(siteName);
+    
+    stream << '\t' << missionType
+           << '\t' << encodeString(username)
+           << '\t' << siteId
+           << '\t' << encodeString(siteName)
+           << '\t' << locationId
+           << '\t' << encodeString(locationName);
 }
 
 void TypeMission::mix(istringstream &stream, NSMutableDictionary *data)
 {
+    string username;
     int siteId;
     string siteName;
-    stream >> siteId >> siteName;
+    int locationId;
+    string locationName;
     
+    stream >> username
+           >> siteId
+           >> siteName
+           >> locationId
+           >> locationName;
+    
+    data[@"username"] = ofxStringToNSString(decodeString(username));
     data[@"siteId"] = [NSNumber numberWithInt:siteId];
     data[@"siteName"] = ofxStringToNSString(decodeString(siteName));
+    data[@"locationId"] = [NSNumber numberWithInt:locationId];
+    data[@"locationName"] = ofxStringToNSString(decodeString(locationName));
 }
+

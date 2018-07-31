@@ -10,7 +10,11 @@
 void TypeMissionArea::encode(ofstream &stream)
 {
     TypeMission::encode(stream);
-    stream << '\t' << rth << '\t' << alt;
+    
+    stream << '\t' << rth
+           << '\t' << alt
+           << '\t' << gimbal_pitch
+           << '\t' << image_overlap;
 }
 
 void TypeMissionArea::mix(istringstream &stream, NSMutableDictionary *data)
@@ -19,8 +23,16 @@ void TypeMissionArea::mix(istringstream &stream, NSMutableDictionary *data)
     
     double rth;
     double alt;
-    stream >> rth >> alt;
+    double gimbal_pitch;
+    double image_overlap;
+
+    stream >> rth
+           >> alt
+           >> gimbal_pitch
+           >> image_overlap;
     
     data[@"rth"] = [NSNumber numberWithDouble:rth];
     data[@"alt"] = [NSNumber numberWithDouble:alt];
+    data[@"gimbal_pitch"] = [NSNumber numberWithDouble:gimbal_pitch];
+    data[@"image_overlap"] = [NSNumber numberWithDouble:image_overlap];
 }

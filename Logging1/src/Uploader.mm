@@ -12,6 +12,8 @@
 #include "Type1.h"
 #include "Type2.h"
 #include "TypeMissionArea.h"
+#include "TypeMissionStructure.h"
+#include "TypeMissionRecon.h"
 
 @interface Uploader()
 {
@@ -83,6 +85,15 @@
                         case 1:
                         case 2:
                             TypeMissionArea::mix(iss, message);
+                            break;
+                            
+                        case 3:
+                        case 4:
+                            TypeMissionStructure::mix(iss, message);
+                            break;
+                            
+                        case 5:
+                            TypeMissionRecon::mix(iss, message);
                             break;
                     }
                     break;

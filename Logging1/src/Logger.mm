@@ -23,9 +23,9 @@ void Logger::end()
     logStream.close();
 }
 
-void Logger::record(int typeId, int missionType)
+void Logger::record(int messageType, int missionType)
 {
-    switch (typeId)
+    switch (messageType)
     {
         case 1:
             type1.encode(logStream);
@@ -42,6 +42,17 @@ void Logger::record(int typeId, int missionType)
                 case 2:
                     typeMissionArea.missionType = missionType;
                     typeMissionArea.encode(logStream);
+                    break;
+                    
+                case 3:
+                case 4:
+                    typeMissionStructure.missionType = missionType;
+                    typeMissionStructure.encode(logStream);
+                    break;
+                    
+                case 5:
+                    typeMissionRecon.missionType = missionType;
+                    typeMissionRecon.encode(logStream);
                     break;
             }
             break;
