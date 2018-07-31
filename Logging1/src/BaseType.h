@@ -18,6 +18,11 @@ public:
     
     static string encodeString(const string &s)
     {
+        if (s.empty())
+        {
+            return "^";
+        }
+        
         string s2 = s;
         std::replace(s2.begin(), s2.end(), ' ', '|');
         return s2;
@@ -25,6 +30,11 @@ public:
     
     static string decodeString(const string &s)
     {
+        if (s == "^")
+        {
+            return "";
+        }
+        
         string s2 = s;
         std::replace(s2.begin(), s2.end(), '|', ' ');
         return s2;

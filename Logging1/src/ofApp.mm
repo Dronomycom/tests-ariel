@@ -23,7 +23,7 @@ void ofApp::setup()
 
     logger.begin();
         logger.type2.age = 25;
-        logger.type2.name = "Donald";
+        logger.type2.name = "";
         logger.type2.surname = "Duck";
         logger.record(2);
 
