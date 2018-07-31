@@ -14,6 +14,7 @@ void ofApp::setup()
         logger.type2.surname = "of Nazareth";
         logger.recordType(2);
 
+        logger.type3.missionType = 1;
         logger.type3.siteId = 28;
         logger.type3.siteName = "Shoam";
         logger.type3.rth = 20;

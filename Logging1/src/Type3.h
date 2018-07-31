@@ -15,7 +15,6 @@ public:
     double rth;
     double alt;
     
-    int getId() final { return 3; }
     void encode(ofstream &stream) final;
     
     static void mix(istringstream &stream, NSMutableDictionary *data);

@@ -45,6 +45,7 @@
         
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         payload[@"version"] = @"1.0";
+        payload[@"date"] = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] stringValue];
         payload[@"messages"] = [[NSMutableArray alloc] init];
         
         ifstream input2(ofxiOSGetDocumentsDirectory() + line);
@@ -53,27 +54,24 @@
         while (getline(input2, line2))
         {
             istringstream iss(line2);
-            int type;
-            double date;
-            iss >> type >> date;
+            int messageType;
+            iss >> messageType;
             
             NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
-            message[@"type"] = [NSNumber numberWithInt:type];
-            message[@"date"] = [NSNumber numberWithDouble:date];
-            message[@"data"] = [[NSMutableDictionary alloc] init];
+            message[@"messageType"] = [NSNumber numberWithInt:messageType];
             
-            switch (type)
+            switch (messageType)
             {
                 case 1:
-                    Type1::mix(iss, message[@"data"]);
+                    Type1::mix(iss, message);
                     break;
 
                 case 2:
-                    Type2::mix(iss, message[@"data"]);
+                    Type2::mix(iss, message);
                     break;
                     
                 case 3:
-                    Type3::mix(iss, message[@"data"]);
+                    Type3::mix(iss, message);
                     break;
             }
             

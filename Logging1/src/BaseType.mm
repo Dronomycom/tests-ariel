@@ -9,5 +9,5 @@
 
 void BaseType::encodeHeader(ofstream &stream)
 {
-    stream << getId() << '\t' << ofGetElapsedTimeMicros();
+    stream << getId();
 }

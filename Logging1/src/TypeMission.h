@@ -12,10 +12,11 @@
 class TypeMission : public BaseType
 {
 public:
+    int missionType;
     int siteId;
     string siteName;
     
-    int getId() override { return 0; }
+    int getId() override { return 3; }
     void encode(ofstream &stream) override;
     
     static void mix(istringstream &stream, NSMutableDictionary *data);
