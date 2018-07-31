@@ -9,19 +9,19 @@
 
 #include "Type1.h"
 #include "Type2.h"
-#include "Type3.h"
+#include "TypeMissionArea.h"
 
 class Logger
 {
 public:
     Type1 type1;
     Type2 type2;
-    Type3 type3;
+    TypeMissionArea typeMissionArea;
     
     void begin();
     void end();
     
-    void recordType(int typeId);
+    void record(int typeId, int missionType = 0);
     
 protected:
     ofstream logStream;

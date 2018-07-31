@@ -15,12 +15,10 @@ void TypeMission::encode(ofstream &stream)
 
 void TypeMission::mix(istringstream &stream, NSMutableDictionary *data)
 {
-    int missionType;
     int siteId;
     string siteName;
-    stream >> missionType >> siteId >> siteName;
+    stream >> siteId >> siteName;
     
-    data[@"missionType"] = [NSNumber numberWithInt:missionType];
     data[@"siteId"] = [NSNumber numberWithInt:siteId];
     data[@"siteName"] = ofxStringToNSString(decodeString(siteName));
 }

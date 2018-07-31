@@ -23,7 +23,7 @@ void Logger::end()
     logStream.close();
 }
 
-void Logger::recordType(int typeId)
+void Logger::record(int typeId, int missionType)
 {
     switch (typeId)
     {
@@ -36,7 +36,14 @@ void Logger::recordType(int typeId)
             break;
             
         case 3:
-            type3.encode(logStream);
+            switch (missionType)
+            {
+                case 1:
+                case 2:
+                    typeMissionArea.missionType = missionType;
+                    typeMissionArea.encode(logStream);
+                    break;
+            }
             break;
     }
     

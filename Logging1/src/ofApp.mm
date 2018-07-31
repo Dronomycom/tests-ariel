@@ -7,30 +7,29 @@ void ofApp::setup()
     logger.begin();
         logger.type1.product = "Coca Cola";
         logger.type1.price = 1.99;
-        logger.recordType(1);
+        logger.record(1);
 
         logger.type2.age = 33;
         logger.type2.name = "Jesus";
         logger.type2.surname = "of Nazareth";
-        logger.recordType(2);
+        logger.record(2);
 
-        logger.type3.missionType = 1;
-        logger.type3.siteId = 28;
-        logger.type3.siteName = "Shoam";
-        logger.type3.rth = 20;
-        logger.type3.alt = 40;
-        logger.recordType(3);
+        logger.typeMissionArea.siteId = 28;
+        logger.typeMissionArea.siteName = "Shoam";
+        logger.typeMissionArea.rth = 20;
+        logger.typeMissionArea.alt = 40;
+        logger.record(3, 1);
     logger.end();
 
     logger.begin();
         logger.type2.age = 25;
         logger.type2.name = "Donald";
         logger.type2.surname = "Duck";
-        logger.recordType(2);
+        logger.record(2);
 
         logger.type1.product = "Corn Flakes";
         logger.type1.price = 13.25;
-        logger.recordType(1);
+        logger.record(1);
     logger.end();
 
     //

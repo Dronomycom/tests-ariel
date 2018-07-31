@@ -1,5 +1,5 @@
 //
-//  Type3.h
+//  TypeMissionArea.h
 //  Logging1
 //
 //  Created by Ariel Malka on 30/07/2018.
@@ -9,7 +9,7 @@
 
 #include "TypeMission.h"
 
-class Type3 : public TypeMission
+class TypeMissionArea : public TypeMission
 {
 public:
     double rth;

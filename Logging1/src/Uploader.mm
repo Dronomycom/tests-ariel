@@ -11,7 +11,7 @@
 
 #include "Type1.h"
 #include "Type2.h"
-#include "Type3.h"
+#include "TypeMissionArea.h"
 
 @interface Uploader()
 {
@@ -56,9 +56,16 @@
             istringstream iss(line2);
             int messageType;
             iss >> messageType;
-            
+
             NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
             message[@"messageType"] = [NSNumber numberWithInt:messageType];
+
+            int missionType;
+            if (messageType == 3)
+            {
+                iss >> missionType;
+                message[@"missionType"] = [NSNumber numberWithInt:missionType];
+            }
             
             switch (messageType)
             {
@@ -71,7 +78,13 @@
                     break;
                     
                 case 3:
-                    Type3::mix(iss, message);
+                    switch (missionType)
+                    {
+                        case 1:
+                        case 2:
+                            TypeMissionArea::mix(iss, message);
+                            break;
+                    }
                     break;
             }
             
