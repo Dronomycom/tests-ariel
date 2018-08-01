@@ -9,6 +9,8 @@
 
 void Logger::begin()
 {
+    t0 = ofGetElapsedTimeMillis();
+    
     /*
      * Necessary in order to open logStream again
      * Alternative: doing this in Logger::end(), if such a method is defined
@@ -26,6 +28,8 @@ void Logger::begin()
 
 void Logger::record(int messageType, int missionType)
 {
+    uint64_t elapsed = ofGetElapsedTimeMillis() - t0;
+    
     switch (messageType)
     {
         case 1:
@@ -33,6 +37,7 @@ void Logger::record(int messageType, int missionType)
             break;
             
         case 2:
+            type2.time = elapsed;
             type2.encode(logStream);
             break;
             

@@ -29,4 +29,5 @@ public:
     
 protected:
     ofstream logStream;
+    uint64_t t0;
 };

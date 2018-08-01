@@ -16,7 +16,6 @@ void ofApp::setup()
 
         logger.type2.latitude = 34.85;
         logger.type2.longitude = 33.11;
-        logger.type2.time = ofGetElapsedTimeMillis(); // XXX
         logger.type2.altitude = 40;
         logger.type2.satellites = 9;
         logger.type2.pitch = 90;
