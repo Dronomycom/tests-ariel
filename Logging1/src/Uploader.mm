@@ -82,11 +82,11 @@
             switch (messageType)
             {
                 case 1:
-                    Type1::mix(iss, message);
+                    Type1::process(iss, message);
                     break;
 
                 case 2:
-                    Type2::mix(iss, message);
+                    Type2::process(iss, message);
                     break;
                     
                 case 3:
@@ -94,16 +94,16 @@
                     {
                         case 1:
                         case 2:
-                            TypeMissionArea::mix(iss, message);
+                            TypeMissionArea::process(iss, message);
                             break;
                             
                         case 3:
                         case 4:
-                            TypeMissionStructure::mix(iss, message);
+                            TypeMissionStructure::process(iss, message);
                             break;
                             
                         case 5:
-                            TypeMissionRecon::mix(iss, message);
+                            TypeMissionRecon::process(iss, message);
                             break;
                     }
                     break;

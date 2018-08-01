@@ -22,5 +22,5 @@ public:
     int getId() override { return 3; }
     void encode(ofstream &stream) override;
     
-    static void mix(istringstream &stream, NSMutableDictionary *data);
+    static void process(istringstream &stream, NSMutableDictionary *data);
 };

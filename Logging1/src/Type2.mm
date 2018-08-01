@@ -13,7 +13,7 @@ void Type2::encode(ofstream &stream)
     stream << '\t' << age << '\t' << encodeString(name) << '\t' << encodeString(surname);
 }
 
-void Type2::mix(istringstream &stream, NSMutableDictionary *data)
+void Type2::process(istringstream &stream, NSMutableDictionary *data)
 {
     int age;
     string name;

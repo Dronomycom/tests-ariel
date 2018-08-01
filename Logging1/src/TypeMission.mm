@@ -19,7 +19,7 @@ void TypeMission::encode(ofstream &stream)
            << '\t' << encodeString(locationName);
 }
 
-void TypeMission::mix(istringstream &stream, NSMutableDictionary *data)
+void TypeMission::process(istringstream &stream, NSMutableDictionary *data)
 {
     string username;
     int siteId;

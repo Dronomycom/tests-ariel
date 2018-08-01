@@ -13,7 +13,7 @@ void Type1::encode(ofstream &stream)
     stream << '\t' << encodeString(product) << '\t' << price;
 }
 
-void Type1::mix(istringstream &stream, NSMutableDictionary *data)
+void Type1::process(istringstream &stream, NSMutableDictionary *data)
 {
     string product;
     double price;

@@ -16,9 +16,9 @@ void TypeMissionRecon::encode(ofstream &stream)
            << '\t' << approach_alt;
 }
 
-void TypeMissionRecon::mix(istringstream &stream, NSMutableDictionary *data)
+void TypeMissionRecon::process(istringstream &stream, NSMutableDictionary *data)
 {
-    TypeMission::mix(stream, data);
+    TypeMission::process(stream, data);
     
     double rth;
     double alt;

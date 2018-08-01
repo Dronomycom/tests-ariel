@@ -17,9 +17,9 @@ void TypeMissionArea::encode(ofstream &stream)
            << '\t' << image_overlap;
 }
 
-void TypeMissionArea::mix(istringstream &stream, NSMutableDictionary *data)
+void TypeMissionArea::process(istringstream &stream, NSMutableDictionary *data)
 {
-    TypeMission::mix(stream, data);
+    TypeMission::process(stream, data);
     
     double rth;
     double alt;

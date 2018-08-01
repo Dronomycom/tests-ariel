@@ -21,9 +21,9 @@ void TypeMissionStructure::encode(ofstream &stream)
            << '\t' << image_overlap;
 }
 
-void TypeMissionStructure::mix(istringstream &stream, NSMutableDictionary *data)
+void TypeMissionStructure::process(istringstream &stream, NSMutableDictionary *data)
 {
-    TypeMission::mix(stream, data);
+    TypeMission::process(stream, data);
     
     double rth;
     double distance;

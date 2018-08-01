@@ -18,5 +18,5 @@ public:
     
     void encode(ofstream &stream) final;
     
-    static void mix(istringstream &stream, NSMutableDictionary *data);
+    static void process(istringstream &stream, NSMutableDictionary *data);
 };
