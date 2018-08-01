@@ -37,6 +37,8 @@
 		E49A2F2A210F361000AB9277 /* TypeMissionArea.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F28210F361000AB9277 /* TypeMissionArea.mm */; };
 		E49A2F2F211094D800AB9277 /* TypeMissionStructure.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F2D211094D800AB9277 /* TypeMissionStructure.mm */; };
 		E49A2F3221109BEC00AB9277 /* TypeMissionRecon.mm in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F3121109BEC00AB9277 /* TypeMissionRecon.mm */; };
+		E49A2F352111D40500AB9277 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A2F342111D40500AB9277 /* Reachability.m */; };
+		E49A2F372111D6E000AB9277 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A2F362111D6E000AB9277 /* SystemConfiguration.framework */; };
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
 		FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21BDE665988474F1B1F4D302 /* jsoncpp.cpp */; };
@@ -109,6 +111,9 @@
 		E49A2F2E211094D800AB9277 /* TypeMissionStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMissionStructure.h; sourceTree = "<group>"; };
 		E49A2F3021109BEC00AB9277 /* TypeMissionRecon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMissionRecon.h; sourceTree = "<group>"; };
 		E49A2F3121109BEC00AB9277 /* TypeMissionRecon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMissionRecon.mm; sourceTree = "<group>"; };
+		E49A2F332111D40400AB9277 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		E49A2F342111D40500AB9277 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		E49A2F362111D6E000AB9277 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E4A823A312561BE3002F86A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E4D8936B11527B74007E1F53 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/main.mm; sourceTree = SOURCE_ROOT; };
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
@@ -122,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49A2F372111D6E000AB9277 /* SystemConfiguration.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -213,6 +219,7 @@
 		33EFF1CB2797BCE1ABEC58D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E49A2F362111D6E000AB9277 /* SystemConfiguration.framework */,
 				E9404130547563CC3D4F90BF /* Pods_Logging1.framework */,
 			);
 			name = Frameworks;
@@ -319,6 +326,8 @@
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
+				E49A2F332111D40400AB9277 /* Reachability.h */,
+				E49A2F342111D40500AB9277 /* Reachability.m */,
 				E49A2F0F210A145B00AB9277 /* Logger.h */,
 				E49A2F0E210A145B00AB9277 /* Logger.mm */,
 				E49A2F13210BC9BD00AB9277 /* Uploader.h */,
@@ -520,6 +529,7 @@
 				E49A2F24210F10DB00AB9277 /* Type2.mm in Sources */,
 				E49A2F27210F346000AB9277 /* TypeMission.mm in Sources */,
 				E49A2F2F211094D800AB9277 /* TypeMissionStructure.mm in Sources */,
+				E49A2F352111D40500AB9277 /* Reachability.m in Sources */,
 				E49A2F21210F0C3400AB9277 /* Type1.mm in Sources */,
 				E49A2F15210BC9BD00AB9277 /* Uploader.mm in Sources */,
 				E49A2F1E210F08B400AB9277 /* BaseType.mm in Sources */,

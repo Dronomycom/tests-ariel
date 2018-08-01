@@ -6,7 +6,7 @@
 //
 
 #import "Uploader.h"
-
+#import "Reachability.h"
 #import <AFNetworking/AFNetworking.h>
 
 #include "Type1.h"
@@ -18,6 +18,7 @@
 #define MESSAGES_PER_PAYLOAD 2
 #define FLUSH_QUEUE_SIZE 2 /* Minimum value = 2 */
 #define FLUSH_RETRY_COUNT 2
+#define CONNECTIVITY_DELAY 5
 
 @interface Uploader()
 {
@@ -53,7 +54,7 @@
         
         //
         
-        cout << "PROCESSING " << line << endl;
+        NSLog(@"PROCESSING %s", line.data());
         
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         payload[@"version"] = @"1.0";
@@ -156,6 +157,13 @@
 
 - (void)flush2:(NSMutableDictionary*)item retrying:(BOOL)retrying
 {
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    while ([reachability currentReachabilityStatus] == NotReachable)
+    {
+        NSLog(@"WAITING FOR CONNECTIVITY");
+        [NSThread sleepForTimeInterval:CONNECTIVITY_DELAY];
+    }
+    
     if (!retrying)
     {
         if ([_queue count] == FLUSH_QUEUE_SIZE - 1) // XXX
