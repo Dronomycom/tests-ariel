@@ -5,13 +5,35 @@
 void ofApp::setup()
 {
     logger.begin();
-        logger.type1.product = "Coca Cola";
-        logger.type1.price = 1.99;
+        logger.type1.appVersion = "1.1b99";
+        logger.type1.planeSerialNumber = "BFGKLR-255";
+        logger.type1.batteryFullCapacity = 100;
+        logger.type1.dischargeCount = 33;
+        logger.type1.batteryLife = 90;
+        logger.type1.droneType = "Phantom 4 Advanced";
         logger.record(1);
 
-        logger.type2.age = 33;
-        logger.type2.name = "Jesus";
-        logger.type2.surname = "of Nazareth";
+        logger.type2.latitude = 34.85;
+        logger.type2.longitude = 33.11;
+        logger.type2.time = ofGetElapsedTimeMillis(); // XXX
+        logger.type2.altitude = 40;
+        logger.type2.satellites = 9;
+        logger.type2.pitch = 90;
+        logger.type2.roll = 0;
+        logger.type2.yaw = 30;
+        logger.type2.velocityX = 1.24;
+        logger.type2.velocityY = 0.85;
+        logger.type2.velocityZ = 1.55;
+        logger.type2.remainPowerPercent = 90;
+        logger.type2.currentCurrent = 5100;
+        logger.type2.currentVoltage = 24;
+        logger.type2.batteryTemperature = 16;
+        logger.type2.isTakingPhoto = false;
+        logger.type2.gimbalPitch = 0;
+        logger.type2.gimbalRoll = 90;
+        logger.type2.gimbalYaw = 0;
+        logger.type2.appTip = "SCANNING";
+        logger.type2.appWarning = "" ;
         logger.record(2);
 
         logger.typeMissionArea.username = "ariel";
@@ -27,10 +49,13 @@ void ofApp::setup()
     logger.end();
 
     logger.begin();
-        logger.type2.age = 25;
-        logger.type2.name = "";
-        logger.type2.surname = "Duck";
-        logger.record(2);
+        logger.type1.appVersion = "1.1b99";
+        logger.type1.planeSerialNumber = "R2KLOP-199";
+        logger.type1.batteryFullCapacity = 50;
+        logger.type1.dischargeCount = 13;
+        logger.type1.batteryLife = 70;
+        logger.type1.droneType = "Phantom 4 Pro";
+        logger.record(1);
 
         logger.typeMissionStructure.username = "liraz";
         logger.typeMissionStructure.siteId = 15;

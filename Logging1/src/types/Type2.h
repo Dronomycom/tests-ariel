@@ -12,9 +12,27 @@
 class Type2 : public BaseType
 {
 public:
-    int age;
-    string name;
-    string surname;
+    double latitude;
+    double longitude;
+    double time;
+    double altitude;
+    int satellites;
+    double pitch;
+    double roll;
+    double yaw;
+    double velocityX;
+    double velocityY;
+    double velocityZ;
+    int remainPowerPercent;
+    int currentCurrent;
+    int currentVoltage;
+    int batteryTemperature;
+    bool isTakingPhoto;
+    double gimbalPitch;
+    double gimbalRoll;
+    double gimbalYaw;
+    string appTip;
+    string appWarning;
     
     int getId() final { return 2; }
     void encode(ofstream &stream) final;

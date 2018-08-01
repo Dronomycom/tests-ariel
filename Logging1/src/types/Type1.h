@@ -12,8 +12,12 @@
 class Type1 : public BaseType
 {
 public:
-    string product;
-    double price;
+    string appVersion;
+    string planeSerialNumber;
+    int batteryFullCapacity;
+    int dischargeCount;
+    int batteryLife;
+    string droneType;
     
     int getId() final { return 1; }
     void encode(ofstream &stream) final;
