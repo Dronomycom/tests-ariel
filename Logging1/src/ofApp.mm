@@ -5,6 +5,7 @@
 void ofApp::setup()
 {
     logger.begin();
+    {
         logger.type1.appVersion = "1.1b99";
         logger.type1.planeSerialNumber = "BFGKLR-255";
         logger.type1.batteryFullCapacity = 100;
@@ -46,9 +47,10 @@ void ofApp::setup()
         logger.typeMissionArea.gimbal_pitch = 45;
         logger.typeMissionArea.image_overlap = 60;
         logger.record(3, 1);
-    logger.end();
-
+    }
+    
     logger.begin();
+    {
         logger.type1.appVersion = "1.1b99";
         logger.type1.planeSerialNumber = "R2KLOP-199";
         logger.type1.batteryFullCapacity = 50;
@@ -81,7 +83,7 @@ void ofApp::setup()
         logger.typeMissionRecon.alt = 30;
         logger.typeMissionRecon.approach_alt = 15;
         logger.record(3, 5);
-    logger.end();
+    }
 
     //
 

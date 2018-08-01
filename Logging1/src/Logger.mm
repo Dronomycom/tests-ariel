@@ -9,6 +9,12 @@
 
 void Logger::begin()
 {
+    /*
+     * Necessary in order to open logStream again
+     * Alternative: doing this in Logger::end(), if such a method is defined
+     */
+    logStream.close();
+    
     string logFilename = "log_" + ofGetTimestampString() + ".txt";
     logStream.open(ofxiOSGetDocumentsDirectory() + logFilename);
     
@@ -16,11 +22,6 @@ void Logger::begin()
     output.open(ofxiOSGetDocumentsDirectory() + "logs.txt", ios::app);
     output << logFilename << endl;
     output.close();
-}
-
-void Logger::end()
-{
-    logStream.close();
 }
 
 void Logger::record(int messageType, int missionType)
