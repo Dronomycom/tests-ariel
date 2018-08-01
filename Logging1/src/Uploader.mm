@@ -17,6 +17,7 @@
 
 #define MESSAGES_PER_PAYLOAD 2
 #define FLUSH_QUEUE_SIZE 2 /* Minimum value = 2 */
+#define FLUSH_RETRY_COUNT 2
 
 @interface Uploader()
 {
@@ -142,18 +143,22 @@
     
     NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
     item[@"payload"] = payload;
+    item[@"tryCount"] = [NSNumber numberWithInt:FLUSH_RETRY_COUNT];
     
-    [self flush2:item];
+    [self flush2:item retrying:NO];
 }
 
-- (void)flush2:(NSDictionary*)item
+- (void)flush2:(NSMutableDictionary*)item retrying:(BOOL)retrying
 {
-    if ([_queue count] == FLUSH_QUEUE_SIZE - 1)
+    if (!retrying)
     {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        if ([_queue count] == FLUSH_QUEUE_SIZE - 1) // XXX
+        {
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        }
+        
+        [_queue addObject:item];
     }
-    
-    [_queue addObject:item];
     
     NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
     
@@ -162,17 +167,36 @@
         if (error) // e.g. timeout or 404
         {
             NSLog(@"ERROR: %@", [error localizedDescription]);
+            goto handleRetry;
         }
         else if ([(NSHTTPURLResponse*)response statusCode] != 200)
         {
             NSLog(@"FAILED WITH STATUS-CODE: %zd", [(NSHTTPURLResponse*)response statusCode]);
+            goto handleRetry;
         }
         else
         {
-            NSLog(@"****** OK ******");
+            NSLog(@"OK");
             
             [_queue removeObject:item];
             dispatch_semaphore_signal(semaphore);
+        }
+        
+        return;
+        
+    handleRetry:
+        int tryCount = [item[@"tryCount"] intValue];
+        tryCount--;
+        
+        if (tryCount <= 0)
+        {
+            [_queue removeObject:item];
+            dispatch_semaphore_signal(semaphore);
+        }
+        else
+        {
+            item[@"tryCount"] = [NSNumber numberWithInt:tryCount];
+            [self flush2:item retrying:YES];
         }
     }];
     
