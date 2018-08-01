@@ -125,6 +125,9 @@
         
         //
         
+        /*
+         * Writing logs.txt minus one entry
+         */
         ofstream output(path);
         for (auto &line3 : lines)
         {
@@ -132,6 +135,9 @@
         }
         output.close();
 
+        /*
+         * Removing the log file which has been processed
+         */
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
     }
