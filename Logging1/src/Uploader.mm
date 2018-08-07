@@ -16,7 +16,6 @@
 #include "TypeMissionRecon.h"
 
 #define MESSAGES_PER_PAYLOAD 2
-#define FLUSH_QUEUE_SIZE 2 /* Minimum value = 2 */
 #define FLUSH_RETRY_COUNT 2
 #define CONNECTIVITY_DELAY 5
 
@@ -26,17 +25,12 @@
     dispatch_semaphore_t semaphore;
 }
 
-@property (nonatomic, strong) NSMutableArray *queue;
-
 @end
 
 @implementation Uploader
 
 - (void)upload
 {
-    semaphore = dispatch_semaphore_create(0);
-    _queue = [[NSMutableArray alloc] init];
-
     string path = ofxiOSGetDocumentsDirectory() + "logs.txt";
     ifstream input(path);
     
@@ -142,20 +136,24 @@
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
     }
+    
+    NSLog(@"-------------------- DONE -------------------------");
 }
 
 - (void)flush1:(NSDictionary*)payload
 {
-    NSLog(@"*** FLUSHING: %@ ***", payload);
+    NSLog(@"*** FLUSHING ***");//NSLog(@"*** FLUSHING: %@ ***", payload);
     
     NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
     item[@"payload"] = payload;
     item[@"tryCount"] = [NSNumber numberWithInt:FLUSH_RETRY_COUNT];
     
-    [self flush2:item retrying:NO];
+    semaphore = dispatch_semaphore_create(0);
+    [self flush2:item];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
-- (void)flush2:(NSMutableDictionary*)item retrying:(BOOL)retrying
+- (void)flush2:(NSMutableDictionary*)item
 {
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     while ([reachability currentReachabilityStatus] == NotReachable)
@@ -164,54 +162,39 @@
         [NSThread sleepForTimeInterval:CONNECTIVITY_DELAY];
     }
     
-    if (!retrying)
-    {
-        if ([_queue count] == FLUSH_QUEUE_SIZE - 1) // XXX
-        {
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        }
-        
-        [_queue addObject:item];
-    }
-    
     NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
     
     NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
+        BOOL retry = NO;
+        
         if (error) // e.g. timeout or 404
         {
             NSLog(@"ERROR: %@", [error localizedDescription]);
-            goto handleRetry;
+            retry = YES;
         }
         else if ([(NSHTTPURLResponse*)response statusCode] != 200)
         {
             NSLog(@"FAILED WITH STATUS-CODE: %zd", [(NSHTTPURLResponse*)response statusCode]);
-            goto handleRetry;
+            retry = YES;
         }
         else
         {
             NSLog(@"OK");
-            
-            [_queue removeObject:item];
-            dispatch_semaphore_signal(semaphore);
         }
         
-        return;
-        
-    handleRetry:
-        int tryCount = [item[@"tryCount"] intValue];
-        tryCount--;
-        
-        if (tryCount <= 0)
+        if (retry)
         {
-            [_queue removeObject:item];
-            dispatch_semaphore_signal(semaphore);
+            int tryCount = [item[@"tryCount"] intValue];
+            if (--tryCount >= 0)
+            {
+                item[@"tryCount"] = [NSNumber numberWithInt:tryCount];
+                [self flush2:item];
+                return;
+            }
         }
-        else
-        {
-            item[@"tryCount"] = [NSNumber numberWithInt:tryCount];
-            [self flush2:item retrying:YES];
-        }
+        
+        dispatch_semaphore_signal(semaphore);
     }];
     
     [task resume];
