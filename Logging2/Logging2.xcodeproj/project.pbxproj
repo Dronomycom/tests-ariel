@@ -161,7 +161,6 @@
 				678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */,
 				E4D8936A11527B74007E1F53 /* src */,
 				E4F370E0211AE0A400BBD0F5 /* assets */,
-				BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
@@ -311,6 +310,7 @@
 		E4F370E0211AE0A400BBD0F5 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */,
 				E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */,
 			);
 			name = assets;
