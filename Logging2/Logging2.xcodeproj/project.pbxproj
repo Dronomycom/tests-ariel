@@ -32,7 +32,16 @@
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
 		E4F370E2211AE10200BBD0F5 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */; };
-		E4F370E5211AE1DA00BBD0F5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */; };
+		E4F370E5211AE1DA00BBD0F5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370E3211AE1DA00BBD0F5 /* AppDelegate.mm */; };
+		E4F370E9211AF85000BBD0F5 /* Uploader.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370E7211AF85000BBD0F5 /* Uploader.mm */; };
+		E4F370EC211AF88F00BBD0F5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F370EA211AF88F00BBD0F5 /* Reachability.m */; };
+		E4F370FC211AF90A00BBD0F5 /* Type1.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370EE211AF90900BBD0F5 /* Type1.mm */; };
+		E4F370FD211AF90A00BBD0F5 /* TypeMissionStructure.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370EF211AF90900BBD0F5 /* TypeMissionStructure.mm */; };
+		E4F370FE211AF90A00BBD0F5 /* TypeMissionRecon.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370F2211AF90900BBD0F5 /* TypeMissionRecon.mm */; };
+		E4F370FF211AF90A00BBD0F5 /* TypeMission.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370F3211AF90900BBD0F5 /* TypeMission.mm */; };
+		E4F37100211AF90A00BBD0F5 /* Type2.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370F4211AF90A00BBD0F5 /* Type2.mm */; };
+		E4F37101211AF90A00BBD0F5 /* TypeMissionArea.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370F8211AF90A00BBD0F5 /* TypeMissionArea.mm */; };
+		E4F37102211AF90A00BBD0F5 /* BaseType.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F370FB211AF90A00BBD0F5 /* BaseType.mm */; };
 		FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21BDE665988474F1B1F4D302 /* jsoncpp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +100,26 @@
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
 		E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E4F370E3211AE1DA00BBD0F5 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		E4F370E4211AE1DA00BBD0F5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E4F370E7211AF85000BBD0F5 /* Uploader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Uploader.mm; sourceTree = "<group>"; };
+		E4F370E8211AF85000BBD0F5 /* Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Uploader.h; sourceTree = "<group>"; };
+		E4F370EA211AF88F00BBD0F5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		E4F370EB211AF88F00BBD0F5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		E4F370EE211AF90900BBD0F5 /* Type1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Type1.mm; sourceTree = "<group>"; };
+		E4F370EF211AF90900BBD0F5 /* TypeMissionStructure.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMissionStructure.mm; sourceTree = "<group>"; };
+		E4F370F0211AF90900BBD0F5 /* TypeMissionRecon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMissionRecon.h; sourceTree = "<group>"; };
+		E4F370F1211AF90900BBD0F5 /* TypeMissionStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMissionStructure.h; sourceTree = "<group>"; };
+		E4F370F2211AF90900BBD0F5 /* TypeMissionRecon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMissionRecon.mm; sourceTree = "<group>"; };
+		E4F370F3211AF90900BBD0F5 /* TypeMission.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMission.mm; sourceTree = "<group>"; };
+		E4F370F4211AF90A00BBD0F5 /* Type2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Type2.mm; sourceTree = "<group>"; };
+		E4F370F5211AF90A00BBD0F5 /* TypeMission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMission.h; sourceTree = "<group>"; };
+		E4F370F6211AF90A00BBD0F5 /* Type1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type1.h; sourceTree = "<group>"; };
+		E4F370F7211AF90A00BBD0F5 /* TypeMissionArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeMissionArea.h; sourceTree = "<group>"; };
+		E4F370F8211AF90A00BBD0F5 /* TypeMissionArea.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeMissionArea.mm; sourceTree = "<group>"; };
+		E4F370F9211AF90A00BBD0F5 /* BaseType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseType.h; sourceTree = "<group>"; };
+		E4F370FA211AF90A00BBD0F5 /* Type2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type2.h; sourceTree = "<group>"; };
+		E4F370FB211AF90A00BBD0F5 /* BaseType.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseType.mm; sourceTree = "<group>"; };
 		F2B099E6BD1199664C48B177 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxJSONElement.cpp; path = ../../../addons/ofxJSON/src/ofxJSONElement.cpp; sourceTree = SOURCE_ROOT; };
 		F96C6B23AD094CD2D24816D7 /* Pods-Logging2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logging2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Logging2/Pods-Logging2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,10 +326,15 @@
 			isa = PBXGroup;
 			children = (
 				E4F370E4211AE1DA00BBD0F5 /* AppDelegate.h */,
-				E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */,
+				E4F370E3211AE1DA00BBD0F5 /* AppDelegate.mm */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
+				E4F370E8211AF85000BBD0F5 /* Uploader.h */,
+				E4F370E7211AF85000BBD0F5 /* Uploader.mm */,
+				E4F370EB211AF88F00BBD0F5 /* Reachability.h */,
+				E4F370EA211AF88F00BBD0F5 /* Reachability.m */,
+				E4F370ED211AF8E500BBD0F5 /* types */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -314,6 +346,27 @@
 				E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */,
 			);
 			name = assets;
+			sourceTree = "<group>";
+		};
+		E4F370ED211AF8E500BBD0F5 /* types */ = {
+			isa = PBXGroup;
+			children = (
+				E4F370F9211AF90A00BBD0F5 /* BaseType.h */,
+				E4F370FB211AF90A00BBD0F5 /* BaseType.mm */,
+				E4F370F6211AF90A00BBD0F5 /* Type1.h */,
+				E4F370EE211AF90900BBD0F5 /* Type1.mm */,
+				E4F370FA211AF90A00BBD0F5 /* Type2.h */,
+				E4F370F4211AF90A00BBD0F5 /* Type2.mm */,
+				E4F370F5211AF90A00BBD0F5 /* TypeMission.h */,
+				E4F370F3211AF90900BBD0F5 /* TypeMission.mm */,
+				E4F370F7211AF90A00BBD0F5 /* TypeMissionArea.h */,
+				E4F370F8211AF90A00BBD0F5 /* TypeMissionArea.mm */,
+				E4F370F0211AF90900BBD0F5 /* TypeMissionRecon.h */,
+				E4F370F2211AF90900BBD0F5 /* TypeMissionRecon.mm */,
+				E4F370F1211AF90900BBD0F5 /* TypeMissionStructure.h */,
+				E4F370EF211AF90900BBD0F5 /* TypeMissionStructure.mm */,
+			);
+			path = types;
 			sourceTree = "<group>";
 		};
 		F40E80CB2D443CBA9581DD03 /* libs */ = {
@@ -488,11 +541,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F37100211AF90A00BBD0F5 /* Type2.mm in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
+				E4F370FE211AF90A00BBD0F5 /* TypeMissionRecon.mm in Sources */,
 				BEDFEE7400C58EA4E412B757 /* ofxJSONElement.cpp in Sources */,
+				E4F370FC211AF90A00BBD0F5 /* Type1.mm in Sources */,
+				E4F37102211AF90A00BBD0F5 /* BaseType.mm in Sources */,
+				E4F370FF211AF90A00BBD0F5 /* TypeMission.mm in Sources */,
+				E4F370EC211AF88F00BBD0F5 /* Reachability.m in Sources */,
+				E4F37101211AF90A00BBD0F5 /* TypeMissionArea.mm in Sources */,
+				E4F370FD211AF90A00BBD0F5 /* TypeMissionStructure.mm in Sources */,
 				FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */,
-				E4F370E5211AE1DA00BBD0F5 /* AppDelegate.m in Sources */,
+				E4F370E5211AE1DA00BBD0F5 /* AppDelegate.mm in Sources */,
+				E4F370E9211AF85000BBD0F5 /* Uploader.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
