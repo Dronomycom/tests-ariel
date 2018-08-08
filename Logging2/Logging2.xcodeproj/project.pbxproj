@@ -31,6 +31,8 @@
 		E43FFE33211ADB5F00393E25 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43FFE32211ADB5F00393E25 /* SystemConfiguration.framework */; };
 		E4D8936E11527B74007E1F53 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936B11527B74007E1F53 /* main.mm */; };
 		E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4D8936D11527B74007E1F53 /* ofApp.mm */; };
+		E4F370E2211AE10200BBD0F5 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */; };
+		E4F370E5211AE1DA00BBD0F5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */; };
 		FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21BDE665988474F1B1F4D302 /* jsoncpp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +90,9 @@
 		E4D8936B11527B74007E1F53 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = src/main.mm; sourceTree = SOURCE_ROOT; };
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
+		E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E4F370E4211AE1DA00BBD0F5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2B099E6BD1199664C48B177 /* ofxJSONElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxJSONElement.cpp; path = ../../../addons/ofxJSON/src/ofxJSONElement.cpp; sourceTree = SOURCE_ROOT; };
 		F96C6B23AD094CD2D24816D7 /* Pods-Logging2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logging2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Logging2/Pods-Logging2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +160,8 @@
 				678E130D17951540005B6D19 /* Default@2x.png */,
 				678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */,
 				E4D8936A11527B74007E1F53 /* src */,
+				E4F370E0211AE0A400BBD0F5 /* assets */,
+				BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
@@ -250,7 +257,6 @@
 			children = (
 				E41D40FD13B3A0D800A75A5D /* iOS+OFLib.xcodeproj */,
 				32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */,
-				BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */,
 				E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */,
 				6948EE371B920CB800B5AC1A /* local_addons */,
 				E41D3ED613B38FB500A75A5D /* Project.xcconfig */,
@@ -293,12 +299,22 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E4F370E4211AE1DA00BBD0F5 /* AppDelegate.h */,
+				E4F370E3211AE1DA00BBD0F5 /* AppDelegate.m */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
+		};
+		E4F370E0211AE0A400BBD0F5 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				E4F370E1211AE10200BBD0F5 /* Storyboard.storyboard */,
+			);
+			name = assets;
+			sourceTree = "<group>";
 		};
 		F40E80CB2D443CBA9581DD03 /* libs */ = {
 			isa = PBXGroup;
@@ -392,6 +408,7 @@
 				678E130C1795153C005B6D19 /* Default.png in Resources */,
 				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
 				678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */,
+				E4F370E2211AE10200BBD0F5 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +492,7 @@
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
 				BEDFEE7400C58EA4E412B757 /* ofxJSONElement.cpp in Sources */,
 				FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */,
+				E4F370E5211AE1DA00BBD0F5 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
