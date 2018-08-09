@@ -22,7 +22,7 @@ void Logger::begin()
     
     ofstream output;
     output.open(ofxiOSGetDocumentsDirectory() + "logs.txt", ios::app);
-    output << logFilename << endl;
+    output << logFilename << '\t' << 0 << endl;
     output.close();
 }
 

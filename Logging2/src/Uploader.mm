@@ -34,39 +34,49 @@
     string path = ofxiOSGetDocumentsDirectory() + "logs.txt";
     ifstream input(path);
     
-    deque<string> lines;
-    string line;
-    while (getline(input, line))
+    deque<pair<string, int>> lines;
+    string line0;
+    while (getline(input, line0))
     {
+        pair<string, int> line;
+        istringstream iss(line0);
+        iss >> line.first >> line.second;
+        
         lines.push_back(line);
     }
     
     while (!lines.empty())
     {
-        string line = lines.front();
+        pair <string, int> line = lines.front();
         lines.pop_front();
         
         //
         
-        NSLog(@"PROCESSING %s", line.data());
+        NSLog(@"PROCESSING %s", line.first.data());
         
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         payload[@"version"] = @"1.0";
         payload[@"date"] = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] stringValue];
         payload[@"messages"] = [[NSMutableArray alloc] init];
         
-        ifstream input2(ofxiOSGetDocumentsDirectory() + line);
+        ifstream input2(ofxiOSGetDocumentsDirectory() + line.first);
         
         string line2;
+        int counter = 0;
         while (getline(input2, line2))
         {
+            if (line.second > counter++)
+            {
+                continue;
+            }
+            
             istringstream iss(line2);
             int messageType;
             iss >> messageType;
-
+            
             NSMutableDictionary *message = [[NSMutableDictionary alloc] init];
             message[@"messageType"] = [NSNumber numberWithInt:messageType];
-
+            
             int missionType;
             if (messageType == 3)
             {
@@ -79,28 +89,28 @@
                 case 1:
                     Type1::process(iss, message);
                     break;
-
+                    
                 case 2:
                     Type2::process(iss, message);
                     break;
                     
                 case 3:
                     switch (missionType)
-                    {
-                        case 1:
-                        case 2:
-                            TypeMissionArea::process(iss, message);
-                            break;
-                            
-                        case 3:
-                        case 4:
-                            TypeMissionStructure::process(iss, message);
-                            break;
-                            
-                        case 5:
-                            TypeMissionRecon::process(iss, message);
-                            break;
-                    }
+                {
+                    case 1:
+                    case 2:
+                        TypeMissionArea::process(iss, message);
+                        break;
+                        
+                    case 3:
+                    case 4:
+                        TypeMissionStructure::process(iss, message);
+                        break;
+                        
+                    case 5:
+                        TypeMissionRecon::process(iss, message);
+                        break;
+                }
                     break;
             }
             
@@ -110,6 +120,21 @@
             {
                 [self flush1:payload];
                 [payload[@"messages"] removeAllObjects];
+                
+                /*
+                 * Updating logs.txt
+                 * XXX: This operation should be atomic, in case the app is shut-down in the middle
+                 */
+                
+                ofstream output(path);
+                
+                output << line.first << '\t' << counter << endl;
+                
+                for (auto &line3 : lines)
+                {
+                    output << line3.first << '\t' << 0 << endl;
+                }
+                output.close();
             }
         }
         
@@ -122,19 +147,20 @@
         
         /*
          * Writing logs.txt minus one entry
+         * XXX: This operation should be atomic, in case the app is shut-down in the middle
          */
         ofstream output(path);
         for (auto &line3 : lines)
         {
-            output << line3 << endl;
+            output << line3.first << '\t' << 0 << endl;
         }
         output.close();
-
+        
         /*
          * Removing the log file which has been processed
          */
         NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line) error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line.first) error:&error];
     }
     
     NSLog(@"-------------------- DONE -------------------------");
