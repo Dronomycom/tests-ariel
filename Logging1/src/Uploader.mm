@@ -168,12 +168,19 @@
 
 - (void)flush1:(NSDictionary*)payload
 {
-    NSLog(@"*** FLUSHING ***");//NSLog(@"*** FLUSHING: %@ ***", payload);
-    
+    NSLog(@"*** FLUSHING ***");
+
+    if (YES)
+    {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:NSJSONWritingPrettyPrinted error:&error];
+        NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    }
+
     NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
     item[@"payload"] = payload;
     item[@"tryCount"] = [NSNumber numberWithInt:FLUSH_RETRY_COUNT];
-    
+
     semaphore = dispatch_semaphore_create(0);
     [self flush2:item];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
