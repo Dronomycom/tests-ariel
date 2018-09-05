@@ -14,6 +14,7 @@
 {
     NSArray *dotTitles;
     NSArray *doneTitles;
+    NSMutableArray *doneValues;
 }
 
 @end
@@ -25,7 +26,9 @@
     [super viewDidLoad];
     
     dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
+    
     doneTitles = @[@"I checked that Battery clicked in", @"Propellers are locked", @"Gimbal cover is off", @"Propeller Guards installed"];
+    doneValues = [@[@NO, @NO, @NO, @NO] mutableCopy];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -61,7 +64,7 @@
     {
         CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         cell.label.text = [doneTitles objectAtIndex:indexPath.row];
-        cell.done.tintColor = [UIColor redColor];
+        cell.done.tintColor = [[doneValues objectAtIndex:indexPath.row] boolValue] ? [UIColor greenColor] : [UIColor lightGrayColor];
         return cell;
     }
 }
@@ -72,6 +75,10 @@
 {
     if (indexPath.section == 1)
     {
+        BOOL value = [[doneValues objectAtIndex:indexPath.row] boolValue];
+        [doneValues replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithBool:!value]];
+        [collectionView reloadData];
+        
         NSLog(@"%d", (int)indexPath.row);
     }
 }
