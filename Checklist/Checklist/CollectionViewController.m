@@ -11,6 +11,10 @@
 #import "CollectionViewCell2.h"
 
 @interface CollectionViewController ()
+{
+    NSArray *dotTitles;
+    NSArray *doneTitles;
+}
 
 @end
 
@@ -19,24 +23,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
+    doneTitles = @[@"I checked that Battery clicked in", @"Propellers are locked", @"Gimbal cover is off", @"Propeller Guards installed"];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 2;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -44,10 +41,10 @@
     {
         default:
         case 0:
-            return 9;
+            return [dotTitles count];
             
         case 1:
-            return 6;
+            return [doneTitles count];
     }
 }
 
@@ -56,20 +53,28 @@
     if (indexPath.section == 0)
     {
         CollectionViewCell1 *cell = (CollectionViewCell1*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
-        cell.label.text = @"How about a very long sentence which should take a few lines?";
+        cell.label.text = [dotTitles objectAtIndex:indexPath.row];
         cell.dot.tintColor = [UIColor yellowColor];
         return cell;
     }
     else
     {
         CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
-        cell.label.text = @"How about a very long sentence which should take a few lines?";
+        cell.label.text = [doneTitles objectAtIndex:indexPath.row];
         cell.done.tintColor = [UIColor redColor];
         return cell;
     }
 }
 
 #pragma mark <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1)
+    {
+        NSLog(@"%d", (int)indexPath.row);
+    }
+}
 
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
