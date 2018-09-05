@@ -7,7 +7,8 @@
 //
 
 #import "CollectionViewController.h"
-#import "CollectionViewCell.h"
+#import "CollectionViewCell1.h"
+#import "CollectionViewCell2.h"
 
 @interface CollectionViewController ()
 
@@ -38,16 +39,23 @@
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 12;
+    return 16;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CollectionViewCell *cell = (CollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.label.text = @"How about a very long sentence which should take a few lines?";
-    cell.dot.tintColor = [UIColor yellowColor];
-    
-    return cell;
+    if (indexPath.row < 12)
+    {
+        CollectionViewCell1 *cell = (CollectionViewCell1*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
+        cell.label.text = @"How about a very long sentence which should take a few lines?";
+        cell.dot.tintColor = [UIColor yellowColor];
+        return cell;
+    }
+    else
+    {
+        CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
+        return cell;
+    }
 }
 
 #pragma mark <UICollectionViewDelegate>

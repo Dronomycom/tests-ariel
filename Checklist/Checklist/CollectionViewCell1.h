@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.h
+//  CollectionViewCell1.h
 //  Checklist
 //
 //  Created by Ariel Malka on 05/09/2018.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectionViewCell : UICollectionViewCell
+@interface CollectionViewCell1 : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIImageView *dot;

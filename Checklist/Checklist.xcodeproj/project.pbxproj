@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E489EB9C213FC81200B8920B /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E489EB9B213FC81200B8920B /* CollectionViewCell.m */; };
+		E489EB9C213FC81200B8920B /* CollectionViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = E489EB9B213FC81200B8920B /* CollectionViewCell1.m */; };
+		E489EBA1213FFC0E00B8920B /* CollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */; };
 		E4E77361213EAAAD0093AB73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E77360213EAAAD0093AB73 /* AppDelegate.m */; };
 		E4E77364213EAAAD0093AB73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E77363213EAAAD0093AB73 /* ViewController.m */; };
 		E4E77367213EAAAD0093AB73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E77365213EAAAD0093AB73 /* Main.storyboard */; };
@@ -18,8 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E489EB9A213FC81200B8920B /* CollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
-		E489EB9B213FC81200B8920B /* CollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		E489EB9A213FC81200B8920B /* CollectionViewCell1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell1.h; sourceTree = "<group>"; };
+		E489EB9B213FC81200B8920B /* CollectionViewCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell1.m; sourceTree = "<group>"; };
+		E489EB9F213FFC0E00B8920B /* CollectionViewCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell2.h; sourceTree = "<group>"; };
+		E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell2.m; sourceTree = "<group>"; };
 		E4E7735C213EAAAD0093AB73 /* Checklist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E7735F213EAAAD0093AB73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4E77360213EAAAD0093AB73 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,8 +78,10 @@
 				E4E7736E213EAAAE0093AB73 /* main.m */,
 				E4E77376213ED7620093AB73 /* CollectionViewController.h */,
 				E4E77377213ED7620093AB73 /* CollectionViewController.m */,
-				E489EB9A213FC81200B8920B /* CollectionViewCell.h */,
-				E489EB9B213FC81200B8920B /* CollectionViewCell.m */,
+				E489EB9A213FC81200B8920B /* CollectionViewCell1.h */,
+				E489EB9B213FC81200B8920B /* CollectionViewCell1.m */,
+				E489EB9F213FFC0E00B8920B /* CollectionViewCell2.h */,
+				E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -152,10 +157,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4E77378213ED7620093AB73 /* CollectionViewController.m in Sources */,
-				E489EB9C213FC81200B8920B /* CollectionViewCell.m in Sources */,
+				E489EB9C213FC81200B8920B /* CollectionViewCell1.m in Sources */,
 				E4E77364213EAAAD0093AB73 /* ViewController.m in Sources */,
 				E4E7736F213EAAAE0093AB73 /* main.m in Sources */,
 				E4E77361213EAAAD0093AB73 /* AppDelegate.m in Sources */,
+				E489EBA1213FFC0E00B8920B /* CollectionViewCell2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
