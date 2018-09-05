@@ -7,6 +7,7 @@
 //
 
 #import "CollectionViewController.h"
+#import "CollectionViewCell.h"
 
 @interface CollectionViewController ()
 
@@ -14,18 +15,9 @@
 
 @implementation CollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
 }
 
 /*
@@ -51,9 +43,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blackColor];
-    NSLog(@"%@", cell);
+    CollectionViewCell *cell = (CollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.label.text = @"XXX";
     
     return cell;
 }
