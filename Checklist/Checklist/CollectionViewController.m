@@ -45,6 +45,7 @@
 {
     CollectionViewCell *cell = (CollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.label.text = @"How about a very long sentence which should take a few lines?";
+    cell.dot.tintColor = [UIColor yellowColor];
     
     return cell;
 }

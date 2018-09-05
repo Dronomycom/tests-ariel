@@ -87,6 +87,7 @@
                                     <constraint firstItem="U6l-cL-keT" firstAttribute="centerY" secondItem="e5R-QW-svT" secondAttribute="centerY" id="zUG-AU-Z0M"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="dot" destination="U6l-cL-keT" id="gm8-St-j0e"/>
                                     <outlet property="label" destination="x7P-Af-Te7" id="cGp-aj-Z0t"/>
                                 </connections>
                             </collectionViewCell>
