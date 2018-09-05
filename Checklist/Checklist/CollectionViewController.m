@@ -13,6 +13,8 @@
 @interface CollectionViewController ()
 {
     NSArray *dotTitles;
+    NSArray *dotValues;
+    
     NSArray *doneTitles;
     NSMutableArray *doneValues;
 }
@@ -26,6 +28,7 @@
     [super viewDidLoad];
     
     dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
+    dotValues = @[@0, @1, @2, @0, @1, @2, @0, @1, @2, @0, @1];
     
     doneTitles = @[@"I checked that Battery clicked in", @"Propellers are locked", @"Gimbal cover is off", @"Propeller Guards installed"];
     doneValues = [@[@NO, @NO, @NO, @NO] mutableCopy];
@@ -57,7 +60,25 @@
     {
         CollectionViewCell1 *cell = (CollectionViewCell1*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
         cell.label.text = [dotTitles objectAtIndex:indexPath.row];
-        cell.dot.tintColor = [UIColor yellowColor];
+        
+        UIColor *color = nil;
+        switch ([[dotValues objectAtIndex:indexPath.row] intValue])
+        {
+            default:
+            case 0:
+                color = [UIColor yellowColor];
+                break;
+                
+            case 1:
+                color = [UIColor greenColor];
+                break;
+                
+            case 2:
+                color = [UIColor redColor];
+                break;
+        }
+        
+        cell.dot.tintColor = color;
         return cell;
     }
     else
