@@ -54,6 +54,8 @@
     else
     {
         CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
+        cell.label.text = @"How about a very long sentence which should take a few lines?";
+        cell.done.tintColor = [UIColor redColor];
         return cell;
     }
 }
