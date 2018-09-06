@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E489EB9C213FC81200B8920B /* CollectionViewCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = E489EB9B213FC81200B8920B /* CollectionViewCell1.m */; };
 		E489EBA1213FFC0E00B8920B /* CollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */; };
+		E4CB3C3C21414D2600436D7B /* CollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CB3C3B21414D2600436D7B /* CollectionReusableView.m */; };
 		E4E77361213EAAAD0093AB73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E77360213EAAAD0093AB73 /* AppDelegate.m */; };
 		E4E77364213EAAAD0093AB73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E77363213EAAAD0093AB73 /* ViewController.m */; };
 		E4E77367213EAAAD0093AB73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E77365213EAAAD0093AB73 /* Main.storyboard */; };
@@ -23,6 +24,8 @@
 		E489EB9B213FC81200B8920B /* CollectionViewCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell1.m; sourceTree = "<group>"; };
 		E489EB9F213FFC0E00B8920B /* CollectionViewCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell2.h; sourceTree = "<group>"; };
 		E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell2.m; sourceTree = "<group>"; };
+		E4CB3C3A21414D2600436D7B /* CollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionReusableView.h; sourceTree = "<group>"; };
+		E4CB3C3B21414D2600436D7B /* CollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionReusableView.m; sourceTree = "<group>"; };
 		E4E7735C213EAAAD0093AB73 /* Checklist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E7735F213EAAAD0093AB73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E4E77360213EAAAD0093AB73 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 				E489EB9B213FC81200B8920B /* CollectionViewCell1.m */,
 				E489EB9F213FFC0E00B8920B /* CollectionViewCell2.h */,
 				E489EBA0213FFC0E00B8920B /* CollectionViewCell2.m */,
+				E4CB3C3A21414D2600436D7B /* CollectionReusableView.h */,
+				E4CB3C3B21414D2600436D7B /* CollectionReusableView.m */,
 			);
 			path = Checklist;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 				E4E7736F213EAAAE0093AB73 /* main.m in Sources */,
 				E4E77361213EAAAD0093AB73 /* AppDelegate.m in Sources */,
 				E489EBA1213FFC0E00B8920B /* CollectionViewCell2.m in Sources */,
+				E4CB3C3C21414D2600436D7B /* CollectionReusableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

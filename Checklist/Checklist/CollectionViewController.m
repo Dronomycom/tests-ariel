@@ -9,6 +9,7 @@
 #import "CollectionViewController.h"
 #import "CollectionViewCell1.h"
 #import "CollectionViewCell2.h"
+#import "CollectionReusableView.h"
 
 @interface CollectionViewController ()
 {
@@ -87,7 +88,7 @@
         {
             default:
             case 0:
-                color = [UIColor yellowColor];
+                color = [UIColor colorWithRed:1 green:0.85 blue:0 alpha:1];;
                 break;
                 
             case 1:
@@ -122,7 +123,14 @@
 {
     if (kind == UICollectionElementKindSectionHeader)
     {
-        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header" forIndexPath:indexPath];
+        CollectionReusableView *reusableView = (CollectionReusableView*)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header" forIndexPath:indexPath];
+        
+        reusableView.batteryImage.tintColor = [UIColor greenColor];
+        reusableView.cameraImage.tintColor = [UIColor colorWithRed:1 green:0.85 blue:0 alpha:1];
+        reusableView.sdCardImage.tintColor = [UIColor redColor];
+        reusableView.communicationImage.tintColor = [UIColor redColor];
+
+        return reusableView;
     }
     else
     {

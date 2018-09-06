@@ -133,7 +133,7 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="ehY-Jf-yJB">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="ehY-Jf-yJB" customClass="CollectionReusableView">
                             <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
@@ -162,6 +162,12 @@
                                 <constraint firstAttribute="trailing" secondItem="sal-2L-Z9e" secondAttribute="trailing" id="gRk-wK-8o4"/>
                                 <constraint firstAttribute="bottom" secondItem="sal-2L-Z9e" secondAttribute="bottom" id="l5r-FR-t3k"/>
                             </constraints>
+                            <connections>
+                                <outlet property="batteryImage" destination="GKy-tn-SYr" id="0hQ-r8-Hyb"/>
+                                <outlet property="cameraImage" destination="bVX-wy-ckR" id="tda-E1-s3A"/>
+                                <outlet property="communicationImage" destination="4eW-Ys-lOO" id="zKd-RX-4qj"/>
+                                <outlet property="sdCardImage" destination="MoI-Gz-aRS" id="uCz-ad-hIe"/>
+                            </connections>
                         </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="NtX-dN-cZt" id="WVe-kL-Iwv"/>
