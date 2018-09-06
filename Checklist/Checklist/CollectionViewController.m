@@ -44,7 +44,7 @@
     doneTitles = @[@"I checked that Battery clicked in", @"Propellers are locked", @"Gimbal cover is off", @"Propeller Guards installed"];
     doneValues = [@[@NO, @NO, @NO, @NO] mutableCopy];
 
-    dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
+    dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
     dotValues = @[@0, @1, @2, @0, @1, @2, @0, @1, @2, @0, @1];
 }
 
