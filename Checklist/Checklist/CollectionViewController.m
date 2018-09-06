@@ -30,11 +30,14 @@
     //
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    UIBarButtonItem *okButton = [[UIBarButtonItem alloc] initWithTitle:@"Ok" style:UIBarButtonItemStylePlain target:self action:@selector(ok:)];
+    UIBarButtonItem *recheckButton = [[UIBarButtonItem alloc] initWithTitle:@"Recheck" style:UIBarButtonItemStylePlain target:self action:@selector(recheck:)];
+    UIBarButtonItem *takeoffButton = [[UIBarButtonItem alloc] initWithTitle:@"Takeoff" style:UIBarButtonItemStylePlain target:self action:@selector(takeoff:)];
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 
-    NSArray *buttons = [[NSArray alloc] initWithObjects:cancelButton, spacer, okButton, nil];
+    NSArray *buttons = [[NSArray alloc] initWithObjects:cancelButton, spacer, recheckButton, spacer, takeoffButton, nil];
     [self setToolbarItems:buttons];
+    
+    takeoffButton.enabled = NO; // XXX
     
     //
     
@@ -149,9 +152,14 @@
     NSLog(@"CANCEL");
 }
 
-- (void)ok:(id)sender
+- (void)recheck:(id)sender
 {
-    NSLog(@"OK");
+    NSLog(@"RECHECK");
+}
+
+- (void)takeoff:(id)sender
+{
+    NSLog(@"TAKEOFF");
 }
 
 @end
