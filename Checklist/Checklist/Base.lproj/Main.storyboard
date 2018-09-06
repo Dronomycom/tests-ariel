@@ -27,11 +27,16 @@
         <!--Navigation Controller-->
         <scene sceneID="PRo-cf-gC5">
             <objects>
-                <navigationController storyboardIdentifier="Checklist" id="aph-JR-qbi" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Checklist" toolbarHidden="NO" id="aph-JR-qbi" sceneMemberID="viewController">
+                    <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IfB-d0-YKO">
                         <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nze-NQ-zb2">
+                        <rect key="frame" x="0.0" y="724" width="1024" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="NtX-dN-cZt" kind="relationship" relationship="rootViewController" id="eNp-To-4IT"/>
                     </connections>

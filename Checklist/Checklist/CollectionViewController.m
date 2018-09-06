@@ -27,6 +27,17 @@
 {
     [super viewDidLoad];
     
+    //
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+    UIBarButtonItem *okButton = [[UIBarButtonItem alloc] initWithTitle:@"Ok" style:UIBarButtonItemStylePlain target:self action:@selector(ok:)];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+
+    NSArray *buttons = [[NSArray alloc] initWithObjects:cancelButton, spacer, okButton, nil];
+    [self setToolbarItems:buttons];
+    
+    //
+    
     dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
     dotValues = @[@0, @1, @2, @0, @1, @2, @0, @1, @2, @0, @1];
     
@@ -132,5 +143,15 @@
 	
 }
 */
+
+- (void)cancel:(id)sender
+{
+    NSLog(@"CANCEL");
+}
+
+- (void)ok:(id)sender
+{
+    NSLog(@"OK");
+}
 
 @end
