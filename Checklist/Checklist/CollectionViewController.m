@@ -12,11 +12,11 @@
 
 @interface CollectionViewController ()
 {
-    NSArray *dotTitles;
-    NSArray *dotValues;
-    
     NSArray *doneTitles;
     NSMutableArray *doneValues;
+
+    NSArray *dotTitles;
+    NSArray *dotValues;
 }
 
 @end
@@ -40,12 +40,12 @@
     takeoffButton.enabled = NO; // XXX
     
     //
-    
-    dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
-    dotValues = @[@0, @1, @2, @0, @1, @2, @0, @1, @2, @0, @1];
-    
+
     doneTitles = @[@"I checked that Battery clicked in", @"Propellers are locked", @"Gimbal cover is off", @"Propeller Guards installed"];
     doneValues = [@[@NO, @NO, @NO, @NO] mutableCopy];
+
+    dotTitles = @[@"Drone connected", @"Downlink signal", @"Uplink signal", @"Radio Channel", @"SD card in", @"SD card full", @"SD card available space for planned pictures planned", @"SD card Unformatted", @"SD card has error", @"SD card is Read Only", @"SD card other error"];
+    dotValues = @[@0, @1, @2, @0, @1, @2, @0, @1, @2, @0, @1];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -61,16 +61,23 @@
     {
         default:
         case 0:
-            return [dotTitles count];
-            
-        case 1:
             return [doneTitles count];
+
+        case 1:
+            return [dotTitles count];
     }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
+    {
+        CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
+        cell.label.text = [doneTitles objectAtIndex:indexPath.row];
+        cell.done.tintColor = [[doneValues objectAtIndex:indexPath.row] boolValue] ? [UIColor greenColor] : [UIColor lightGrayColor];
+        return cell;
+    }
+    else
     {
         CollectionViewCell1 *cell = (CollectionViewCell1*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
         cell.label.text = [dotTitles objectAtIndex:indexPath.row];
@@ -95,20 +102,13 @@
         cell.dot.tintColor = color;
         return cell;
     }
-    else
-    {
-        CollectionViewCell2 *cell = (CollectionViewCell2*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
-        cell.label.text = [doneTitles objectAtIndex:indexPath.row];
-        cell.done.tintColor = [[doneValues objectAtIndex:indexPath.row] boolValue] ? [UIColor greenColor] : [UIColor lightGrayColor];
-        return cell;
-    }
 }
 
 #pragma mark <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1)
+    if (indexPath.section == 0)
     {
         BOOL value = [[doneValues objectAtIndex:indexPath.row] boolValue];
         [doneValues replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithBool:!value]];
