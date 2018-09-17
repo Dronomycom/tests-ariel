@@ -3,4 +3,5 @@ platform :ios, '10.0'
 target 'Logging1' do
   use_frameworks!
   pod 'AFNetworking', '~> 3.0'
+  pod 'Godzippa', '~> 1.0'
 end

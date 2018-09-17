@@ -8,6 +8,7 @@
 #import "Uploader.h"
 #import "Reachability.h"
 #import <AFNetworking/AFNetworking.h>
+#import "AFgzipRequestSerializer.h"
 
 #include "Type1.h"
 #include "Type2.h"
@@ -15,9 +16,12 @@
 #include "TypeMissionStructure.h"
 #include "TypeMissionRecon.h"
 
-#define MESSAGES_PER_PAYLOAD 2
+#define MESSAGES_PER_PAYLOAD 3
 #define FLUSH_RETRY_COUNT 2
 #define CONNECTIVITY_DELAY 5
+
+#define OUTPUT_JSON NO
+#define USE_GZIP NO
 
 @interface Uploader()
 {
@@ -170,7 +174,7 @@
 {
     NSLog(@"*** FLUSHING ***");
 
-    if (YES)
+    if (OUTPUT_JSON)
     {
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:NSJSONWritingPrettyPrinted error:&error];
@@ -195,7 +199,15 @@
         [NSThread sleepForTimeInterval:CONNECTIVITY_DELAY];
     }
     
-    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
+    NSURLRequest *request;
+    if (USE_GZIP)
+    {
+        request = [[AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
+    }
+    else
+    {
+        request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
+    }
     
     NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
