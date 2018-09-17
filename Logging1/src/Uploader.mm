@@ -21,7 +21,6 @@
 #define CONNECTIVITY_DELAY 5
 
 #define OUTPUT_JSON NO
-#define USE_GZIP NO
 
 @interface Uploader()
 {
@@ -199,50 +198,28 @@
         [NSThread sleepForTimeInterval:CONNECTIVITY_DELAY];
     }
     
-    NSURLRequest *request;
-    if (USE_GZIP)
-    {
-        request = [[AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
-    }
-    else
-    {
-        request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] error:nil];
-    }
+    self.sessionManager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]];
     
-    NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        
-        BOOL retry = NO;
-        
-        if (error) // e.g. timeout or 404
-        {
-            NSLog(@"ERROR: %@", [error localizedDescription]);
-            retry = YES;
+    [self.sessionManager POST:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:item[@"payload"] progress:nil
+        success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"%@", responseObject); // XXX
+            dispatch_semaphore_signal(semaphore);
         }
-        else if ([(NSHTTPURLResponse*)response statusCode] != 200)
-        {
-            NSLog(@"FAILED WITH STATUS-CODE: %zd", [(NSHTTPURLResponse*)response statusCode]);
-            retry = YES;
-        }
-        else
-        {
-            NSLog(@"OK");
-        }
-        
-        if (retry)
-        {
+        failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"[Error] %@", error); // XXX
+
             int tryCount = [item[@"tryCount"] intValue];
             if (--tryCount >= 0)
             {
                 item[@"tryCount"] = [NSNumber numberWithInt:tryCount];
                 [self flush2:item];
-                return;
+            }
+            else
+            {
+                dispatch_semaphore_signal(semaphore);
             }
         }
-        
-        dispatch_semaphore_signal(semaphore);
-    }];
-    
-    [task resume];
+    ];
 }
 
 /*
@@ -256,7 +233,7 @@
     NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
     [conf setHTTPAdditionalHeaders:[NSDictionary dictionaryWithObject:encodedCredentials forKey:@"Authorization"]];
     
-    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-dev.dronomy.com:8443"] sessionConfiguration:conf];
+    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-qa.dronomy.com"] sessionConfiguration:conf];
 }
 
 -(AFHTTPSessionManager*)sessionManager
