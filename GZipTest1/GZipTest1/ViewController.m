@@ -31,11 +31,7 @@
      * https://github.com/AFNetworking/AFgzipRequestSerializer
      */
     self.sessionManager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[AFJSONRequestSerializer serializer]];
-    self.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer]; // XXX
     
-    /*
-     * Fails with "debug:'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte"
-     */
     [self.sessionManager POST:[self.sessionManager.baseURL.absoluteString stringByAppendingString:@"/post_planner_log/"] parameters:json progress:nil
           success:^(NSURLSessionDataTask *task, id responseObject) {
               NSLog(@"%@", responseObject);
@@ -63,7 +59,7 @@
     NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
     [conf setHTTPAdditionalHeaders:[NSDictionary dictionaryWithObject:encodedCredentials forKey:@"Authorization"]];
     
-    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-dev.dronomy.com:8443"] sessionConfiguration:conf];
+    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api-qa.dronomy.com"] sessionConfiguration:conf];
 }
 
 - (AFHTTPSessionManager*)sessionManager
