@@ -1,0 +1,52 @@
+{
+  "version" : "1.0",
+  "date" : "1537171505.489585",
+  "messages" : [
+    {
+      "batteryFullCapacity" : 100,
+      "appVersion" : "1.1b99",
+      "planeSerialNumber" : "BFGKLR-255",
+      "dischargeCount" : 33,
+      "batteryLife" : 90,
+      "droneType" : "Phantom 4 Advanced",
+      "messageType" : 1
+    },
+    {
+      "currentCurrent" : 5100,
+      "time" : 4,
+      "velocityY" : 0.84999999999999998,
+      "appWarning" : "",
+      "latitude" : 34.850000000000001,
+      "appTip" : "SCANNING",
+      "currentVoltage" : 24,
+      "gimbalYaw" : 0,
+      "longitude" : 33.109999999999999,
+      "roll" : 0,
+      "velocityX" : 1.24,
+      "yaw" : 30,
+      "batteryTemperature" : 16,
+      "velocityZ" : 1.55,
+      "satellites" : 9,
+      "messageType" : 2,
+
+      "remainPowerPercent" : 90,
+      "isTakingPhoto" : false,
+      "gimbalRoll" : 90,
+      "gimbalPitch" : 0,
+      "pitch" : 90
+    },
+    {
+      "siteId" : 28,
+      "missionType" : 1,
+      "siteName" : "Shoam",
+      "image_overlap" : 60,
+      "locationName" : "Site Map",
+      "rth" : 20,
+      "alt" : 40,
+      "username" : "ariel",
+      "messageType" : 3,
+      "gimbal_pitch" : 45,
+      "locationId" : 3
+    }
+  ]
+}

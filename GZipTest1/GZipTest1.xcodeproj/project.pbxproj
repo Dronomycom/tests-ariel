@@ -14,6 +14,8 @@
 		E4758C9F214FDC4600714960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4758C9E214FDC4600714960 /* Assets.xcassets */; };
 		E4758CA2214FDC4600714960 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4758CA0214FDC4600714960 /* LaunchScreen.storyboard */; };
 		E4758CA5214FDC4600714960 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4758CA4214FDC4600714960 /* main.m */; };
+		E4758CAD214FE14E00714960 /* AFgzipRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4758CAC214FE14E00714960 /* AFgzipRequestSerializer.m */; };
+		E4758CAF214FE17F00714960 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = E4758CAE214FE17E00714960 /* test.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,9 @@
 		E4758CA1214FDC4600714960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4758CA3214FDC4600714960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4758CA4214FDC4600714960 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E4758CAB214FE14E00714960 /* AFgzipRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFgzipRequestSerializer.h; sourceTree = "<group>"; };
+		E4758CAC214FE14E00714960 /* AFgzipRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFgzipRequestSerializer.m; sourceTree = "<group>"; };
+		E4758CAE214FE17E00714960 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,9 @@
 		E4758C94214FDC4400714960 /* GZipTest1 */ = {
 			isa = PBXGroup;
 			children = (
+				E4758CAE214FE17E00714960 /* test.json */,
+				E4758CAB214FE14E00714960 /* AFgzipRequestSerializer.h */,
+				E4758CAC214FE14E00714960 /* AFgzipRequestSerializer.m */,
 				E4758C95214FDC4400714960 /* AppDelegate.h */,
 				E4758C96214FDC4400714960 /* AppDelegate.m */,
 				E4758C98214FDC4400714960 /* ViewController.h */,
@@ -158,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4758CA2214FDC4600714960 /* LaunchScreen.storyboard in Resources */,
+				E4758CAF214FE17F00714960 /* test.json in Resources */,
 				E4758C9F214FDC4600714960 /* Assets.xcassets in Resources */,
 				E4758C9D214FDC4400714960 /* Main.storyboard in Resources */,
 			);
@@ -226,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4758CAD214FE14E00714960 /* AFgzipRequestSerializer.m in Sources */,
 				E4758C9A214FDC4400714960 /* ViewController.m in Sources */,
 				E4758CA5214FDC4600714960 /* main.m in Sources */,
 				E4758C97214FDC4400714960 /* AppDelegate.m in Sources */,
