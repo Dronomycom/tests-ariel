@@ -26,6 +26,7 @@
 {
     AFHTTPSessionManager *_sessionManager;
     dispatch_semaphore_t semaphore;
+    BOOL shouldStop;
 }
 
 @end
@@ -121,7 +122,15 @@
             
             if ([payload[@"messages"] count] == MESSAGES_PER_PAYLOAD)
             {
+                shouldStop = NO;
                 [self flush1:payload];
+                
+                if (shouldStop)
+                {
+                    NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                    return;
+                }
+                
                 [payload[@"messages"] removeAllObjects];
                 
                 /*
@@ -166,7 +175,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line.first) error:&error];
     }
     
-    NSLog(@"-------------------- DONE -------------------------");
+    NSLog(@"-------------------- UPLOAD DONE -------------------------");
 }
 
 - (void)flush1:(NSDictionary*)payload
@@ -208,6 +217,16 @@
         failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSInteger statusCode = [(NSHTTPURLResponse *)task.response statusCode];
             NSLog(@"Status code: %ld , Error: %@", statusCode, error); // XXX
+            
+            switch (statusCode)
+            {
+                case 404:
+                case 500:
+                case 503:
+                    shouldStop = YES;
+                    dispatch_semaphore_signal(semaphore);
+                    return;
+            }
 
             int tryCount = [item[@"tryCount"] intValue];
             if (--tryCount >= 0)
