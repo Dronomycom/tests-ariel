@@ -54,11 +54,12 @@
         
         //
         
-        NSLog(@"PROCESSING %s", line.first.data());
+        NSLog(@"PROCESSING %s", line.first.data()/* e.g. log_2018-09-21-00-25-34-682.txt */);
         
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         payload[@"version"] = @"1.0";
         payload[@"date"] = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] stringValue];
+        payload[@"flightId"] = ofxStringToNSString(line.first.substr(4, 23));
         payload[@"messages"] = [[NSMutableArray alloc] init];
 //        payload[@"debug_status_code"] = @503;
         
