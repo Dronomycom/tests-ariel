@@ -206,7 +206,8 @@
             dispatch_semaphore_signal(semaphore);
         }
         failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"[Error] %@", error); // XXX
+            NSInteger statusCode = [(NSHTTPURLResponse *)task.response statusCode];
+            NSLog(@"Status code: %ld , Error: %@", statusCode, error); // XXX
 
             int tryCount = [item[@"tryCount"] intValue];
             if (--tryCount >= 0)
