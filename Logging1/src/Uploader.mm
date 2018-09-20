@@ -26,7 +26,7 @@
 {
     AFHTTPSessionManager *_sessionManager;
     dispatch_semaphore_t semaphore;
-    BOOL shouldStop;
+    BOOL shouldAbort;
 }
 
 @end
@@ -62,6 +62,7 @@
         payload[@"version"] = @"1.0";
         payload[@"date"] = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] stringValue];
         payload[@"messages"] = [[NSMutableArray alloc] init];
+//        payload[@"debug_status_code"] = @503;
         
         ifstream input2(ofxiOSGetDocumentsDirectory() + line.first);
         
@@ -122,10 +123,7 @@
             
             if ([payload[@"messages"] count] == MESSAGES_PER_PAYLOAD)
             {
-                shouldStop = NO;
-                [self flush1:payload];
-                
-                if (shouldStop)
+                if ([self flush1:payload])
                 {
                     NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
                     return;
@@ -152,7 +150,11 @@
         
         if ([payload[@"messages"] count] > 0)
         {
-            [self flush1:payload];
+            if ([self flush1:payload])
+            {
+                NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                return;
+            }
         }
         
         //
@@ -178,7 +180,7 @@
     NSLog(@"-------------------- UPLOAD DONE -------------------------");
 }
 
-- (void)flush1:(NSDictionary*)payload
+- (BOOL)flush1:(NSDictionary*)payload
 {
     NSLog(@"*** FLUSHING ***");
 
@@ -193,9 +195,13 @@
     item[@"payload"] = payload;
     item[@"tryCount"] = [NSNumber numberWithInt:FLUSH_RETRY_COUNT];
 
+    shouldAbort = NO;
+    
     semaphore = dispatch_semaphore_create(0);
     [self flush2:item];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    return shouldAbort;
 }
 
 - (void)flush2:(NSMutableDictionary*)item
@@ -223,7 +229,7 @@
                 case 404:
                 case 500:
                 case 503:
-                    shouldStop = YES;
+                    shouldAbort = YES;
                     dispatch_semaphore_signal(semaphore);
                     return;
             }

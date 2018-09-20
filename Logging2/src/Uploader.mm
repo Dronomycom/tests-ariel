@@ -24,6 +24,7 @@
 {
     AFHTTPSessionManager *_sessionManager;
     dispatch_semaphore_t semaphore;
+    BOOL shouldAbort;
 }
 
 @end
@@ -59,6 +60,7 @@
         payload[@"version"] = @"1.0";
         payload[@"date"] = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] stringValue];
         payload[@"messages"] = [[NSMutableArray alloc] init];
+//        payload[@"debug_status_code"] = @503;
         
         ifstream input2(ofxiOSGetDocumentsDirectory() + line.first);
         
@@ -119,7 +121,12 @@
             
             if ([payload[@"messages"] count] == MESSAGES_PER_PAYLOAD)
             {
-                [self flush1:payload];
+                if ([self flush1:payload])
+                {
+                    NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                    return;
+                }
+                
                 [payload[@"messages"] removeAllObjects];
                 
                 /*
@@ -141,7 +148,11 @@
         
         if ([payload[@"messages"] count] > 0)
         {
-            [self flush1:payload];
+            if ([self flush1:payload])
+            {
+                NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                return;
+            }
         }
         
         //
@@ -164,10 +175,10 @@
         [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + line.first) error:&error];
     }
     
-    NSLog(@"-------------------- DONE -------------------------");
+    NSLog(@"-------------------- UPLOAD DONE -------------------------");
 }
 
-- (void)flush1:(NSDictionary*)payload
+- (BOOL)flush1:(NSDictionary*)payload
 {
     NSLog(@"*** FLUSHING ***");//NSLog(@"*** FLUSHING: %@ ***", payload);
     
@@ -175,9 +186,13 @@
     item[@"payload"] = payload;
     item[@"tryCount"] = [NSNumber numberWithInt:FLUSH_RETRY_COUNT];
     
+    shouldAbort = NO;
+
     semaphore = dispatch_semaphore_create(0);
     [self flush2:item];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    return shouldAbort;
 }
 
 - (void)flush2:(NSMutableDictionary*)item
@@ -197,7 +212,18 @@
                           dispatch_semaphore_signal(semaphore);
                       }
                       failure:^(NSURLSessionDataTask *task, NSError *error) {
-                          NSLog(@"[Error] %@", error); // XXX
+                          NSInteger statusCode = [(NSHTTPURLResponse *)task.response statusCode];
+                          NSLog(@"Status code: %ld , Error: %@", statusCode, error); // XXX
+                          
+                          switch (statusCode)
+                          {
+                              case 404:
+                              case 500:
+                              case 503:
+                                  shouldAbort = YES;
+                                  dispatch_semaphore_signal(semaphore);
+                                  return;
+                          }
                           
                           int tryCount = [item[@"tryCount"] intValue];
                           if (--tryCount >= 0)
