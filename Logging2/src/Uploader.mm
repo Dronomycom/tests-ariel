@@ -36,13 +36,13 @@
     /*
      * Basic mechanism to avoid uploader to be re-entered on a separate thread
      */
-    if ([self checkLock])
+    if ([Uploader checkLock])
     {
         NSLog(@"-------------------- UPLOAD CANCELLED --------------------");
         return;
     }
     
-    [self createLock];
+    [Uploader createLock];
     
     //
     
@@ -139,7 +139,7 @@
                 {
                     NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
                     
-                    [self releaseLock];
+                    [Uploader releaseLock];
                     return;
                 }
                 
@@ -168,7 +168,7 @@
             {
                 NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
                 
-                [self releaseLock];
+                [Uploader releaseLock];
                 return;
             }
         }
@@ -195,7 +195,7 @@
     
     NSLog(@"-------------------- UPLOAD DONE -------------------------");
     
-    [self releaseLock];
+    [Uploader releaseLock];
 }
 
 - (BOOL)flush1:(NSDictionary*)payload
@@ -283,17 +283,17 @@
     return _sessionManager;
 }
 
-- (BOOL)checkLock
++ (BOOL)checkLock
 {
     return [[NSFileManager defaultManager] fileExistsAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock")];
 }
 
-- (void)createLock
++ (void)createLock
 {
     [[NSFileManager defaultManager] createFileAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock") contents:nil attributes:nil];
 }
 
-- (void)releaseLock
++ (void)releaseLock
 {
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock") error:&error];
