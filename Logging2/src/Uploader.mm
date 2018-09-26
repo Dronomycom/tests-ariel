@@ -33,6 +33,19 @@
 
 - (void)upload
 {
+    /*
+     * Basic mechanism to avoid uploader to be re-entered on a separate thread
+     */
+    if ([self checkLock])
+    {
+        NSLog(@"-------------------- UPLOAD CANCELLED --------------------");
+        return;
+    }
+    
+    [self createLock];
+    
+    //
+    
     string path = ofxiOSGetDocumentsDirectory() + "logs.txt";
     ifstream input(path);
     
@@ -125,6 +138,8 @@
                 if ([self flush1:payload])
                 {
                     NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                    
+                    [self releaseLock];
                     return;
                 }
                 
@@ -152,6 +167,8 @@
             if ([self flush1:payload])
             {
                 NSLog(@"-------------------- UPLOAD ABORTED -------------------------");
+                
+                [self releaseLock];
                 return;
             }
         }
@@ -177,6 +194,8 @@
     }
     
     NSLog(@"-------------------- UPLOAD DONE -------------------------");
+    
+    [self releaseLock];
 }
 
 - (BOOL)flush1:(NSDictionary*)payload
@@ -262,6 +281,22 @@
     }
     
     return _sessionManager;
+}
+
+- (BOOL)checkLock
+{
+    return [[NSFileManager defaultManager] fileExistsAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock")];
+}
+
+- (void)createLock
+{
+    [[NSFileManager defaultManager] createFileAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock") contents:nil attributes:nil];
+}
+
+- (void)releaseLock
+{
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:ofxStringToNSString(ofxiOSGetDocumentsDirectory() + "logs.lock") error:&error];
 }
 
 @end

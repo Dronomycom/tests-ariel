@@ -10,5 +10,6 @@
 @interface Uploader : NSObject
 
 - (void)upload;
+- (void)releaseLock;
 
 @end

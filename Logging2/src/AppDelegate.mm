@@ -28,17 +28,20 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     __block UIBackgroundTaskIdentifier background_task;
+    __block Uploader *uploader = [[Uploader alloc] init];
     
     background_task = [application beginBackgroundTaskWithExpirationHandler:^ {
         
         NSLog(@"!!!!!!!!!! EXPIRATION HANDLER !!!!!!!!!!");
+        
+        [uploader releaseLock];
+        
         [application endBackgroundTask: background_task];
         background_task = UIBackgroundTaskInvalid;
     }];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        Uploader *uploader = [[Uploader alloc] init];
         [uploader upload];
         
         [application endBackgroundTask: background_task];
